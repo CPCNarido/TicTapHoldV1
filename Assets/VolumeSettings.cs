@@ -17,46 +17,22 @@ public class VolumeSettings : MonoBehaviour
             return;
         }
 
-        // Initialize the slider value based on the current AudioMixer volume
-        float currentVolume;
-        if (myMixer.GetFloat("music", out currentVolume))
-        {
-            // Convert the AudioMixer volume (-80 to 0 dB) to a percentage (0 to 100)
-            musicSlider.value = Mathf.Clamp01(Mathf.Pow(10, currentVolume / 20)) * 100;
-        }
-        else
-        {
-            // Default slider value to 100% if no volume is set
-            musicSlider.value = 100;
-        }
+        // Load saved slider values from PlayerPrefs
+        float savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 100); // Default to 100 if not set
+        float savedSFXVolume = PlayerPrefs.GetFloat("SFXVolume", 100); // Default to 100 if not set
+        float savedMasterVolume = PlayerPrefs.GetFloat("MasterVolume", 100); // Default to 100 if not set
 
-        // Initialize the SFX slider value based on the current AudioMixer volume
-        float currentSFXVolume;
-        if (myMixer.GetFloat("sfx", out currentSFXVolume))
-        {
-            // Convert the AudioMixer volume (-80 to 0 dB) to a percentage (0 to 100)
-            sfxSlider.value = Mathf.Clamp01(Mathf.Pow(10, currentSFXVolume / 20)) * 100;
-        }
-        else
-        {
-            // Default slider value to 100% if no volume is set
-            sfxSlider.value = 100;
-        }
+        // Set slider values to the saved values
+        musicSlider.value = savedMusicVolume;
+        sfxSlider.value = savedSFXVolume;
+        masterSlider.value = savedMasterVolume;
 
-        // Initialize the Master slider value based on the current AudioMixer volume
-        float currentMasterVolume;
-        if (myMixer.GetFloat("master", out currentMasterVolume))
-        {
-            // Convert the AudioMixer volume (-80 to 0 dB) to a percentage (0 to 100)
-            masterSlider.value = Mathf.Clamp01(Mathf.Pow(10, currentMasterVolume / 20)) * 100;
-        }
-        else
-        {
-            // Default slider value to 100% if no volume is set
-            masterSlider.value = 100;
-        }
+        // Apply the saved values to the AudioMixer
+        SetMusicVolume(savedMusicVolume);
+        SetSFXVolume(savedSFXVolume);
+        SetMasterVolume(savedMasterVolume);
 
-        // Add listeners to update the AudioMixer volume when the sliders' values change
+        // Add listeners to update the AudioMixer volume and save the values when sliders change
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
         masterSlider.onValueChanged.AddListener(SetMasterVolume);
@@ -68,6 +44,8 @@ public class VolumeSettings : MonoBehaviour
         float normalizedValue = Mathf.Clamp(sliderValue / 100, 0.0001f, 1f); // Avoid log(0)
         float volume = Mathf.Log10(normalizedValue) * 20;
         myMixer.SetFloat("music", volume); // Set the volume in the AudioMixer
+        PlayerPrefs.SetFloat("MusicVolume", sliderValue); // Save the slider value
+        PlayerPrefs.Save(); // Ensure the value is saved immediately
         Debug.Log($"Music volume set to: {volume} dB (Slider: {sliderValue}%)");
     }
 
@@ -77,6 +55,8 @@ public class VolumeSettings : MonoBehaviour
         float normalizedValue = Mathf.Clamp(sliderValue / 100, 0.0001f, 1f); // Avoid log(0)
         float volume = Mathf.Log10(normalizedValue) * 20;
         myMixer.SetFloat("sfx", volume); // Set the volume in the AudioMixer
+        PlayerPrefs.SetFloat("SFXVolume", sliderValue); // Save the slider value
+        PlayerPrefs.Save(); // Ensure the value is saved immediately
         Debug.Log($"SFX volume set to: {volume} dB (Slider: {sliderValue}%)");
     }
 
@@ -86,6 +66,8 @@ public class VolumeSettings : MonoBehaviour
         float normalizedValue = Mathf.Clamp(sliderValue / 100, 0.0001f, 1f); // Avoid log(0)
         float volume = Mathf.Log10(normalizedValue) * 20;
         myMixer.SetFloat("master", volume); // Set the volume in the AudioMixer
+        PlayerPrefs.SetFloat("MasterVolume", sliderValue); // Save the slider value
+        PlayerPrefs.Save(); // Ensure the value is saved immediately
         Debug.Log($"Master volume set to: {volume} dB (Slider: {sliderValue}%)");
     }
 }
