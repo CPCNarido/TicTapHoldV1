@@ -5,6 +5,7 @@ public class SettingsManager : MonoBehaviour
 {
     private string previousScene;
 
+    //prev scene
     public static void SetPreviousScene(string sceneName)
     {
         Debug.Log($"Saving previous scene: {sceneName}");
