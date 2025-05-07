@@ -70,4 +70,9 @@ public class VolumeSettings : MonoBehaviour
         PlayerPrefs.Save(); // Ensure the value is saved immediately
         Debug.Log($"Master volume set to: {volume} dB (Slider: {sliderValue}%)");
     }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.Save();
+    }
 }
