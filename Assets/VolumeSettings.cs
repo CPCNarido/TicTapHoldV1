@@ -5,9 +5,9 @@ using UnityEngine.Audio;
 public class VolumeSettings : MonoBehaviour
 {
     [SerializeField] private AudioMixer myMixer; // Reference to the AudioMixer
-    [SerializeField] private Slider musicSlider; // Reference to the Music Slider component
-    [SerializeField] private Slider sfxSlider; // Reference to the SFX Slider component
-    [SerializeField] private Slider masterSlider; // Reference to the Master Slider component
+    [SerializeField] public Slider musicSlider; // Reference to the Music Slider component
+    [SerializeField] public Slider sfxSlider; // Reference to the SFX Slider component
+    [SerializeField] public Slider masterSlider; // Reference to the Master Slider component
 
     private void Start()
     {

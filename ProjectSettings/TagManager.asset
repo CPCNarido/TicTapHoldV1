@@ -9,6 +9,8 @@ TagManager:
   - LowButtonTag
   - MediumButtonTag
   - HighButtonTag
+  - RestoreButtonTag
+  - GraphicsQualityManagerTag
   layers:
   - Default
   - TransparentFX
