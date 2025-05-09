@@ -1916,6 +1916,10 @@ PrefabInstance:
       value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 5456134984028609000, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5456134984028609000, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 9033399935740006678, guid: 4733e02096c01894899f223f6d4748af, type: 2}
