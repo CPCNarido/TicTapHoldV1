@@ -9,96 +9,75 @@ public class Scroll : MonoBehaviour
     float scroll_pos = 0;
     float[] pos;
     private GameObject currentlySelectedParent = null;
+    private Vector2 childButtonSize = new Vector2(400f, 390f); // Set your desired child button size here
 
     void Update()
     {
         pos = new float[transform.childCount];
-        float distance = 1f / (pos.Length - 1);
+        float distance = 1f / (pos.Length - 1f);
 
-        // Populate the pos array
         for (int i = 0; i < pos.Length; i++)
         {
             pos[i] = i * distance;
         }
 
-        // Update scroll_pos based on the scrollbar value
         scroll_pos = scrollbar.GetComponent<Scrollbar>().value;
 
+        // Handle button scaling based on scroll position
         for (int i = 0; i < pos.Length; i++)
         {
             if (scroll_pos > pos[i] - (distance / 2) && scroll_pos < pos[i] + (distance / 2))
             {
-                // Scale the selected button
-                transform.GetChild(i).localScale = Vector3.Lerp(transform.GetChild(i).localScale, new Vector3(1.2f, 1.2f, 1f), 0.1f);
+                transform.GetChild(i).localScale = Vector2.Lerp(
+                    transform.GetChild(i).localScale, 
+                    new Vector2(1.2f, 1.2f), 
+                    0.1f
+                );
+                
                 for (int a = 0; a < pos.Length; a++)
                 {
                     if (a != i)
                     {
-                        // Scale the unselected buttons
-                        transform.GetChild(a).localScale = Vector3.Lerp(transform.GetChild(a).localScale, new Vector3(0.8f, 0.8f, 0.8f), 0.1f);
+                        transform.GetChild(a).localScale = Vector2.Lerp(
+                            transform.GetChild(a).localScale, 
+                            new Vector2(0.8f, 0.8f), 
+                            0.1f
+                        );
                     }
                 }
             }
         }
 
-        // Detect touches or mouse clicks outside buttons
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-            {
-                Debug.Log("Touch began outside UI.");
-                ResetActiveButton();
-            }
-        }
-        else if (Input.GetMouseButtonDown(0)) // For PC testing
+        // Handle click outside UI
+        if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("Mouse click detected outside UI.");
                 ResetActiveButton();
             }
         }
     }
 
-    // Method to reset the currently active button
     private void ResetActiveButton()
     {
         if (currentlySelectedParent != null)
         {
-            Debug.Log("Resetting active button: " + currentlySelectedParent.name);
+            // Find the child button in the hierarchy
+            Transform childButton = currentlySelectedParent.transform.parent.Find(currentlySelectedParent.name + "_Child");
             
-            // Make parent button visible again
-            Image parentImage = currentlySelectedParent.GetComponent<Image>();
-            if (parentImage != null) parentImage.enabled = true;
-            
-            Text parentText = currentlySelectedParent.GetComponentInChildren<Text>();
-            if (parentText != null) parentText.enabled = true;
-
-            // Enable the parent button's Button component
-            Button parentButtonComponent = currentlySelectedParent.GetComponent<Button>();
-            if (parentButtonComponent != null)
-            {
-                parentButtonComponent.interactable = true;
-            }
-
-            // Disable the child button
-            Transform childButton = currentlySelectedParent.transform.GetChild(0);
             if (childButton != null)
             {
-                childButton.gameObject.SetActive(false);
+                Destroy(childButton.gameObject); // Remove the child button
             }
 
+            // Reactivate the parent
+            currentlySelectedParent.SetActive(true);
             currentlySelectedParent = null;
         }
     }
 
-    // Method to handle parent button click
     public void OnParentButtonClick(GameObject parentButton)
     {
-        Debug.Log("OnParentButtonClick called for: " + parentButton.name);
-
         // If clicking the same button again, toggle it off
         if (currentlySelectedParent == parentButton)
         {
@@ -115,34 +94,44 @@ public class Scroll : MonoBehaviour
         // Set the new selected button
         currentlySelectedParent = parentButton;
 
-        // Hide the parent button's visual elements
-        Image parentImage = parentButton.GetComponent<Image>();
-        if (parentImage != null) parentImage.enabled = false;
-        
-        Text parentText = parentButton.GetComponentInChildren<Text>();
-        if (parentText != null) parentText.enabled = false;
+        // Create a new child button instance (or use a pooled object)
+        GameObject childButton = Instantiate(
+            parentButton.transform.GetChild(0).gameObject, // Original child prefab
+            parentButton.transform.parent
+        );
 
-        // Show the child button
-        Transform childButton = parentButton.transform.GetChild(0);
-        if (childButton == null)
+        // Position and size the child button
+        RectTransform parentRect = parentButton.GetComponent<RectTransform>();
+        RectTransform childRect = childButton.GetComponent<RectTransform>();
+
+        // Set anchors and pivot to center
+        childRect.anchorMin = new Vector2(0.5f, 0.5f);
+        childRect.anchorMax = new Vector2(0.5f, 0.5f);
+        childRect.pivot = new Vector2(0.5f, 0.5f);
+
+        // Set position to match parent (centered)
+        childRect.anchoredPosition = parentRect.anchoredPosition;
+
+        // Apply custom size (400x390)
+        childRect.sizeDelta = childButtonSize;
+
+        // Set hierarchy order and name
+        childButton.transform.SetSiblingIndex(parentButton.transform.GetSiblingIndex());
+        childButton.name = parentButton.name + "_Child";
+
+        // Activate the child and deactivate the parent
+        childButton.SetActive(true);
+        parentButton.SetActive(false);
+
+        // Add click handler to the child button
+        Button childBtnComponent = childButton.GetComponent<Button>();
+        if (childBtnComponent != null)
         {
-            Debug.LogError("Child button not found under: " + parentButton.name);
-            return;
-        }
-
-        Debug.Log("Activating child button: " + childButton.name);
-        childButton.gameObject.SetActive(true);
-
-        // Disable the parent button's Button component
-        Button parentButtonComponent = parentButton.GetComponent<Button>();
-        if (parentButtonComponent != null)
-        {
-            parentButtonComponent.interactable = false;
-            Debug.Log("Parent button interaction disabled: " + parentButton.name);
+            childBtnComponent.onClick.RemoveAllListeners();
+            childBtnComponent.onClick.AddListener(() => OnChildButtonClick("YourLevelNameHere"));
         }
     }
 
-    // Method to handle child button click
     public void OnChildButtonClick(string levelName)
     {
         Debug.Log("Loading level: " + levelName);
