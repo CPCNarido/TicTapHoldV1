@@ -11,6 +11,9 @@ TagManager:
   - HighButtonTag
   - RestoreButtonTag
   - GraphicsQualityManagerTag
+  - LeftButton
+  - RightButton
+  - Activator
   layers:
   - Default
   - TransparentFX
@@ -47,6 +50,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3489148167
+    locked: 0
+  - name: Notes
+    uniqueID: 4123085133
+    locked: 0
+  - name: Button
+    uniqueID: 1723851447
     locked: 0
   m_RenderingLayers:
   - Default
