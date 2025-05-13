@@ -19,6 +19,6 @@
         { "direction": "left", "time": 17.0 },
         { "direction": "right", "time": 18.0, "holdDuration": 1.0 },
         { "direction": "left", "time": 19.5 },
-        { "direction": "right", "time": 20.2 }
+        { "direction": "right", "time": 20.2 , "holdDuration": 10.0 }
     ]
 }

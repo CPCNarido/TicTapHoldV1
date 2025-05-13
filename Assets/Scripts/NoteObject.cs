@@ -1,11 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NoteObject : MonoBehaviour
 {
     public bool canBePressed;
     public string buttonTag; // Tag for the button corresponding to this note
+    public bool isHoldNote; // Indicates if this is a hold note
+    public float holdDuration; // Duration for the hold note to shrink
+    private bool isShrinking = false;
+
+    // Static flag to ensure only one note is processed at a time
+    private static bool isProcessingNote = false;
 
     void Update()
     {
@@ -22,9 +27,19 @@ public class NoteObject : MonoBehaviour
 
                     if (hit.collider != null && hit.collider.CompareTag(buttonTag))
                     {
-                        if (canBePressed)
+                        if (canBePressed && !isProcessingNote)
                         {
-                            gameObject.SetActive(false);
+                            isProcessingNote = true; // Lock processing to this note
+
+                            if (isHoldNote)
+                            {
+                                StartCoroutine(ShrinkAndRemove());
+                            }
+                            else
+                            {
+                                gameObject.SetActive(false);
+                                isProcessingNote = false; // Unlock processing immediately for tap notes
+                            }
                         }
                     }
                 }
@@ -47,4 +62,32 @@ public class NoteObject : MonoBehaviour
             canBePressed = false;
         }
     }
+
+    private IEnumerator ShrinkAndRemove()
+    {
+        if (isShrinking) yield break;
+        isShrinking = true;
+
+        Vector3 originalScale = transform.localScale;
+        float elapsedTime = 0f;
+
+        try
+        {
+            while (elapsedTime < holdDuration)
+            {
+                float progress = elapsedTime / holdDuration;
+                transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, progress);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.localScale = Vector3.zero;
+            gameObject.SetActive(false);
+        }
+        finally
+        {
+            isProcessingNote = false;
+        }
+    }
+
 }
