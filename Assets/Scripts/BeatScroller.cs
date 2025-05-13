@@ -12,6 +12,10 @@ public class BeatScroller : MonoBehaviour
     public Transform leftTarget;
     public Transform rightTarget;
 
+    public AudioSource noteHitSound; // Audio source for note hit sound
+    public AudioSource holdNoteSound; // Audio source for hold note sound
+    public AudioSource backgroundMusic; // Audio source for background music
+
     private bool hasStarted = false;
     private NoteConfig noteConfig;
     private int noteIndex = 0;
@@ -32,6 +36,12 @@ public class BeatScroller : MonoBehaviour
             {
                 hasStarted = true;
                 Debug.Log("BeatScroller started.");
+
+                // Start playing the background music
+                if (backgroundMusic != null && !backgroundMusic.isPlaying)
+                {
+                    backgroundMusic.Play();
+                }
             }
         }
         else
@@ -73,6 +83,13 @@ public class BeatScroller : MonoBehaviour
                 Debug.Log($"Removing {direction} note.");
                 activeNotes.RemoveAt(i);
                 Destroy(note);
+
+                // Play note hit sound
+                if (noteHitSound != null)
+                {
+                    noteHitSound.Play();
+                }
+
                 return;
             }
         }
@@ -175,6 +192,13 @@ public class BeatScroller : MonoBehaviour
                         Debug.Log($"Hold note {direction} completed!");
                         activeNotes.Remove(note);
                         Destroy(note);
+
+                        // Play hold note sound
+                        if (holdNoteSound != null)
+                        {
+                            holdNoteSound.Play();
+                        }
+
                         return;
                     }
                 }
@@ -183,6 +207,13 @@ public class BeatScroller : MonoBehaviour
                     Debug.Log($"Tap note {direction} removed!");
                     activeNotes.Remove(note);
                     Destroy(note);
+
+                    // Play note hit sound
+                    if (noteHitSound != null)
+                    {
+                        noteHitSound.Play();
+                    }
+
                     return;
                 }
             }
