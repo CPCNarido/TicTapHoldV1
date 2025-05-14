@@ -41,10 +41,8 @@ public class BeatScroller : MonoBehaviour
     void Start()
     {
         if (scoreText != null)
-        scoreText.text = "Score: 0";
+        scoreText.text = "0";
 
-        if (multiplierText != null)
-            multiplierText.text = "Multiplier: x1";
 
 
         beatTempo = beatTempo / 60f;
@@ -293,7 +291,7 @@ void SpawnNote(Note note, float elapsedTime)
     {
         if (scoreText != null)
         {
-            scoreText.text = $"Score: {score}";
+            scoreText.text = $"{score}";
             Debug.Log($"[UI] Score updated to {score}");
         }
         else
