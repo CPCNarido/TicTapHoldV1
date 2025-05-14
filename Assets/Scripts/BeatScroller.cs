@@ -5,62 +5,82 @@ using UnityEngine;
 
 public class BeatScroller : MonoBehaviour
 {
-    public float beatTempo; // Beats per minute
+    public float beatTempo; // BPM
     public GameObject leftNotePrefab;
     public GameObject rightNotePrefab;
     public Transform centerPosition;
     public Transform leftTarget;
     public Transform rightTarget;
 
-    public AudioSource noteHitSound; // Audio source for note hit sound
-    public AudioSource holdNoteSound; // Audio source for hold note sound
-    public AudioSource backgroundMusic; // Audio source for background music
+    public AudioSource noteHitSound;
+    public AudioSource holdNoteSound;
+    public AudioSource backgroundMusic;
+
+    public float musicStartDelay = 2f; // Gap after notes spawn before music starts
 
     private bool hasStarted = false;
+    private bool musicStarted = false;
+    private float startTime;
+
     private NoteConfig noteConfig;
     private int noteIndex = 0;
     private List<GameObject> activeNotes = new List<GameObject>();
 
     void Start()
     {
-        beatTempo = beatTempo / 60f; // Convert BPM to units per second
-        Debug.Log($"Beat tempo set to {beatTempo} units per second.");
+        beatTempo = beatTempo / 60f;
+
+        // Automatically calculate musicStartDelay based on travel time from center to target (9.5 units)
+        float noteTravelDistance = 9.5f; // Distance from center (0) to left/right target
+        musicStartDelay = noteTravelDistance / beatTempo;
+
+        Debug.Log($"Music will start after {musicStartDelay:F2} seconds (auto-calculated).");
+
         LoadNoteConfig();
     }
+
 
     void Update()
     {
         if (!hasStarted)
         {
-            if (Input.touchCount > 0 || Input.anyKeyDown) // Can auto-start with touch or any key
+            if (Input.touchCount > 0 || Input.anyKeyDown)
             {
                 hasStarted = true;
-                Debug.Log("BeatScroller started.");
-
-                // Start playing the background music
-                if (backgroundMusic != null && !backgroundMusic.isPlaying)
-                {
-                    backgroundMusic.Play();
-                }
+                startTime = Time.timeSinceLevelLoad;
+                Debug.Log("Game started: Notes will begin immediately, music after delay.");
             }
         }
         else
         {
-            // Ensure noteConfig is not null before accessing it
+            float elapsedTime = Time.timeSinceLevelLoad - startTime;
+
+            // Start background music after delay
+            if (!musicStarted && elapsedTime >= musicStartDelay)
+            {
+                if (backgroundMusic != null && !backgroundMusic.isPlaying)
+                {
+                    backgroundMusic.Play();
+                    musicStarted = true;
+                    Debug.Log("Music started.");
+                }
+            }
+
             if (noteConfig == null || noteConfig.notes == null)
             {
                 Debug.LogError("NoteConfig is null or not properly loaded!");
                 return;
             }
 
+            // Continue spawning notes immediately after game start
             while (noteIndex < noteConfig.notes.Count &&
-                Time.timeSinceLevelLoad >= noteConfig.notes[noteIndex].time)
+                elapsedTime >= noteConfig.notes[noteIndex].time)
             {
-                SpawnNote(noteConfig.notes[noteIndex]);
+                SpawnNote(noteConfig.notes[noteIndex], elapsedTime);
                 noteIndex++;
             }
 
-            // Check for user input to remove or hold notes
+            // Handle input
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 HandleHoldNote("left", Time.deltaTime);
@@ -72,33 +92,9 @@ public class BeatScroller : MonoBehaviour
         }
     }
 
-    public void RemoveNoteByDirection(string direction)
-    {
-        for (int i = 0; i < activeNotes.Count; i++)
-        {
-            GameObject note = activeNotes[i];
-            NoteMover noteMover = note.GetComponent<NoteMover>();
-            if (noteMover != null && noteMover.GetDirection() == direction)
-            {
-                Debug.Log($"Removing {direction} note.");
-                activeNotes.RemoveAt(i);
-                Destroy(note);
-
-                // Play note hit sound
-                if (noteHitSound != null)
-                {
-                    noteHitSound.Play();
-                }
-
-                return;
-            }
-        }
-        Debug.Log($"No {direction} note to remove.");
-    }
-
     void LoadNoteConfig()
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "noteConfig.json");
+        string filePath = Path.Combine(Application.streamingAssetsPath, "mistydrive_easy.json");
         Debug.Log($"Loading note configuration from: {filePath}");
 
         if (File.Exists(filePath))
@@ -121,7 +117,7 @@ public class BeatScroller : MonoBehaviour
         }
     }
 
-    void SpawnNote(Note note)
+    void SpawnNote(Note note, float elapsedTime)
     {
         GameObject prefab = note.direction == "left" ? leftNotePrefab : rightNotePrefab;
         if (prefab == null)
@@ -135,18 +131,24 @@ public class BeatScroller : MonoBehaviour
             ? new Vector3(leftTarget.position.x, leftTarget.position.y, -5f)
             : new Vector3(rightTarget.position.x, rightTarget.position.y, -5f);
 
+        float distanceToTarget = Mathf.Abs(spawnPosition.x - targetPosition.x);
+        float travelTime = distanceToTarget / beatTempo;
+        float adjustedSpawnTime = note.time - travelTime;
+
+        if (elapsedTime < adjustedSpawnTime)
+            return;
+
         GameObject spawnedNote = Instantiate(prefab, spawnPosition, Quaternion.identity);
         NoteMover noteMover = spawnedNote.GetComponent<NoteMover>();
 
         if (noteMover != null)
         {
-            bool isHoldNote = note.holdDuration > 0; // Check if it's a hold note
+            bool isHoldNote = note.holdDuration > 0;
             noteMover.Initialize(targetPosition, beatTempo, isHoldNote, note.holdDuration);
 
             if (isHoldNote)
             {
-                // Stretch the note horizontally based on the hold duration
-                float scaleFactor = note.holdDuration * beatTempo; // Adjust scaling based on tempo
+                float scaleFactor = note.holdDuration * beatTempo;
                 spawnedNote.transform.localScale = new Vector3(scaleFactor, spawnedNote.transform.localScale.y, spawnedNote.transform.localScale.z);
             }
 
@@ -158,23 +160,27 @@ public class BeatScroller : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnHoldSegments(GameObject parentNote, float holdDuration)
+    public void RemoveNoteByDirection(string direction)
     {
-        float segmentInterval = 0.1f; // Time between each segment spawn
-        float elapsedTime = 0f;
-
-        while (elapsedTime < holdDuration)
+        for (int i = 0; i < activeNotes.Count; i++)
         {
-            // Spawn a segment as a child of the parent note
-            GameObject segment = Instantiate(parentNote, parentNote.transform.position, Quaternion.identity);
-            segment.transform.SetParent(parentNote.transform);
+            GameObject note = activeNotes[i];
+            NoteMover noteMover = note.GetComponent<NoteMover>();
+            if (noteMover != null && noteMover.GetDirection() == direction)
+            {
+                Debug.Log($"Removing {direction} note.");
+                activeNotes.RemoveAt(i);
+                Destroy(note);
 
-            // Offset the segment's position to create a "trail"
-            segment.transform.localPosition += new Vector3(-elapsedTime * beatTempo, 0, 0);
+                if (noteHitSound != null)
+                {
+                    noteHitSound.Play();
+                }
 
-            elapsedTime += segmentInterval;
-            yield return new WaitForSeconds(segmentInterval);
+                return;
+            }
         }
+        Debug.Log($"No {direction} note to remove.");
     }
 
     void HandleHoldNote(string direction, float deltaTime)
@@ -193,7 +199,6 @@ public class BeatScroller : MonoBehaviour
                         activeNotes.Remove(note);
                         Destroy(note);
 
-                        // Play hold note sound
                         if (holdNoteSound != null)
                         {
                             holdNoteSound.Play();
@@ -208,7 +213,6 @@ public class BeatScroller : MonoBehaviour
                     activeNotes.Remove(note);
                     Destroy(note);
 
-                    // Play note hit sound
                     if (noteHitSound != null)
                     {
                         noteHitSound.Play();
@@ -217,6 +221,22 @@ public class BeatScroller : MonoBehaviour
                     return;
                 }
             }
+        }
+    }
+
+    IEnumerator SpawnHoldSegments(GameObject parentNote, float holdDuration)
+    {
+        float segmentInterval = 0.1f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < holdDuration)
+        {
+            GameObject segment = Instantiate(parentNote, parentNote.transform.position, Quaternion.identity);
+            segment.transform.SetParent(parentNote.transform);
+            segment.transform.localPosition += new Vector3(-elapsedTime * beatTempo, 0, 0);
+
+            elapsedTime += segmentInterval;
+            yield return new WaitForSeconds(segmentInterval);
         }
     }
 }
