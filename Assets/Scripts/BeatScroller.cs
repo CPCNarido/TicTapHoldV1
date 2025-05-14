@@ -14,6 +14,7 @@ public class BeatScroller : MonoBehaviour
     public Transform rightTarget;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI multiplierText;
+    private bool gameEnded = false;
 
 
     public AudioSource noteHitSound;
@@ -118,6 +119,15 @@ public class BeatScroller : MonoBehaviour
             // Remove notes that are destroyed after moving off-screen
             activeNotes.RemoveAll(note => note == null);
         }
+
+        if (!gameEnded && hasStarted && noteIndex >= noteConfig.notes.Count && activeNotes.Count == 0)
+    {
+        Debug.Log("All notes cleared. Ending game...");
+        EndGame();
+        hasStarted = false;
+        gameEnded = true;
+    }
+
     }
 
     void LoadNoteConfig()
@@ -297,21 +307,29 @@ void SpawnNote(Note note, float elapsedTime)
             scoreText.text = $"{score}";
             Debug.Log($"[UI] Score updated to {score}");
         }
-        else
-        {
-            Debug.LogWarning("ScoreText is not assigned!");
-        }
 
         if (multiplierText != null)
         {
             multiplierText.text = $"Multiplier: x{multiplier}";
             Debug.Log($"[UI] Multiplier updated to x{multiplier}");
         }
-        else
-        {
-            Debug.LogWarning("MultiplierText is not assigned!");
-        }
     }
+    void OnEnable()
+    {
+        NoteMover.OnNoteMissed += HandleNoteMissed;
+    }
+
+    void OnDisable()
+    {
+        NoteMover.OnNoteMissed -= HandleNoteMissed;
+    }
+
+    void HandleNoteMissed(string direction)
+    {
+        Debug.Log($"Note missed on {direction} side. Resetting multiplier.");
+        ResetStreak();
+    }
+
 
 
     void ResetStreak()
@@ -319,6 +337,57 @@ void SpawnNote(Note note, float elapsedTime)
         streak = 0;
         multiplier = 1;
         Debug.Log("Streak reset. Multiplier reset to 1.");
+
+        // Update the UI
+        UpdateScoreUI();
+    }
+
+    public void SaveScore()
+    {
+        string filePath = Path.Combine(Application.streamingAssetsPath, "mistydrive_easy.json");
+
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError($"Score file not found at: {filePath}");
+            return;
+        }
+
+        string json = File.ReadAllText(filePath);
+        NoteConfig config = JsonUtility.FromJson<NoteConfig>(json);
+
+        if (config != null)
+        {
+            // Create highScore object if it doesn't exist
+            if (config.highScore == null)
+            {
+                config.highScore = new HighScore();
+            }
+
+            Debug.Log($"Current high score: {config.highScore.best}, New score: {score}");
+
+            if (config.highScore.best < score)
+            {
+                config.highScore.best = score;
+                File.WriteAllText(filePath, JsonUtility.ToJson(config, true));
+                Debug.Log("New high score saved!");
+            }
+            else
+            {
+                Debug.Log("Score is not higher than the current high score. No update made.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Failed to parse JSON or NoteConfig is null.");
+        }
+    }
+
+
+
+    void EndGame()
+    {
+        SaveScore();
+        Debug.Log("Game ended. Score saved.");
     }
 
     IEnumerator SpawnHoldSegments(GameObject parentNote, float holdDuration)

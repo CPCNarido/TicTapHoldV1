@@ -10,6 +10,9 @@ public class NoteMover : MonoBehaviour
     private bool isHoldNote;
     private bool isMovingOffScreen = false;
 
+    public delegate void NoteMissedHandler(string direction);
+    public static event NoteMissedHandler OnNoteMissed;
+
     public void Initialize(Vector3 target, float tempo, string direction, bool holdNote = false, float holdTime = 0f)
     {
         targetPosition = target;
@@ -37,8 +40,15 @@ public class NoteMover : MonoBehaviour
         else
         {
             // Move off-screen
-            Vector3 offScreenPosition = direction == "left" ? new Vector3(-60, 0, transform.position.z) : new Vector3(60, 0, transform.position.z);
+            Vector3 offScreenPosition = direction == "left" ? new Vector3(-15, 0, transform.position.z) : new Vector3(15, 0, transform.position.z);
             transform.position = Vector3.MoveTowards(transform.position, offScreenPosition, speed * Time.deltaTime);
+
+            // Check if the note has reached the reset position
+            if ((direction == "left" && transform.position.x <= -11) ||
+                (direction == "right" && transform.position.x >= 11))
+            {
+                OnNoteMissed?.Invoke(direction); // Notify that the note was missed
+            }
 
             // Destroy the note once it reaches the off-screen position
             if (Vector3.Distance(transform.position, offScreenPosition) < 0.1f)

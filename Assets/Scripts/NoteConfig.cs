@@ -5,4 +5,11 @@ using System.Collections.Generic;
 public class NoteConfig
 {
     public List<Note> notes; // List of notes in the configuration
+    public HighScore highScore; // High score data
+}
+
+[Serializable]
+public class HighScore
+{
+    public int best;
 }
