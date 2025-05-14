@@ -70,7 +70,7 @@ public class BeatScroller : MonoBehaviour
         else
         {
             float elapsedTime = Time.timeSinceLevelLoad - startTime;
-
+    
             // Start background music after delay
             if (!musicStarted && elapsedTime >= musicStartDelay)
             {
@@ -81,13 +81,13 @@ public class BeatScroller : MonoBehaviour
                     Debug.Log("Music started.");
                 }
             }
-
+    
             if (noteConfig == null || noteConfig.notes == null)
             {
                 Debug.LogError("NoteConfig is null or not properly loaded!");
                 return;
             }
-
+    
             // Continue spawning notes immediately after game start
             while (noteIndex < noteConfig.notes.Count &&
                 elapsedTime >= noteConfig.notes[noteIndex].time)
@@ -95,7 +95,7 @@ public class BeatScroller : MonoBehaviour
                 SpawnNote(noteConfig.notes[noteIndex], elapsedTime);
                 noteIndex++;
             }
-
+    
             // Handle touch input
             if (Input.touchCount > 0)
             {
@@ -114,6 +114,9 @@ public class BeatScroller : MonoBehaviour
                     }
                 }
             }
+    
+            // Remove notes that are destroyed after moving off-screen
+            activeNotes.RemoveAll(note => note == null);
         }
     }
 

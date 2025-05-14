@@ -5,25 +5,16 @@ public class NoteMover : MonoBehaviour
     private Vector3 targetPosition;
     private float speed;
     private string direction;
-    private float holdDuration; // Duration the player needs to hold the button
-    private float holdProgress; // How long the player has held the button
-    private bool isHoldNote;    // Whether this is a hold note
+    private float holdDuration;
+    private float holdProgress;
+    private bool isHoldNote;
+    private bool isMovingOffScreen = false;
 
-    void Start()
-    {
-        var image = GetComponent<UnityEngine.UI.Image>();
-        if (image != null) image.raycastTarget = false;
-
-        var text = GetComponent<UnityEngine.UI.Text>();
-        if (text != null) text.raycastTarget = false;
-    }
-
-    // NEW: Updated to explicitly pass in direction
     public void Initialize(Vector3 target, float tempo, string direction, bool holdNote = false, float holdTime = 0f)
     {
         targetPosition = target;
         speed = tempo;
-        this.direction = direction.ToLower(); // Ensure consistency
+        this.direction = direction.ToLower();
         isHoldNote = holdNote;
         holdDuration = holdTime;
         holdProgress = 0f;
@@ -31,9 +22,30 @@ public class NoteMover : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        if (!isMovingOffScreen)
+        {
+            // Move towards the target position
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-        // Removed automatic destroy of hold notes — now handled externally!
+            // Check if the note has reached the target
+            if (IsAtTarget() && !isHoldNote)
+            {
+                // Start moving off-screen if it's not a hold note
+                StartMovingOffScreen();
+            }
+        }
+        else
+        {
+            // Move off-screen
+            Vector3 offScreenPosition = direction == "left" ? new Vector3(-60, 0, transform.position.z) : new Vector3(60, 0, transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, offScreenPosition, speed * Time.deltaTime);
+
+            // Destroy the note once it reaches the off-screen position
+            if (Vector3.Distance(transform.position, offScreenPosition) < 0.1f)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public bool IsAtTarget(float threshold = 0.5f)
@@ -41,9 +53,24 @@ public class NoteMover : MonoBehaviour
         return Vector3.Distance(transform.position, targetPosition) < threshold;
     }
 
+    public void StartMovingOffScreen()
+    {
+        isMovingOffScreen = true;
+    }
+
     public string GetDirection()
     {
         return direction;
+    }
+
+    public float GetHoldProgress()
+    {
+        return holdProgress;
+    }
+
+    public float GetHoldDuration()
+    {
+        return holdDuration;
     }
 
     public bool IsHoldNote()
@@ -62,15 +89,5 @@ public class NoteMover : MonoBehaviour
     public bool IsHoldComplete()
     {
         return holdProgress >= holdDuration;
-    }
-
-    public float GetHoldProgress()
-    {
-        return holdProgress;
-    }
-
-    public float GetHoldDuration()
-    {
-        return holdDuration;
     }
 }
