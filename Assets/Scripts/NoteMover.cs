@@ -18,11 +18,12 @@ public class NoteMover : MonoBehaviour
         if (text != null) text.raycastTarget = false;
     }
 
-    public void Initialize(Vector3 target, float tempo, bool holdNote = false, float holdTime = 0f)
+    // NEW: Updated to explicitly pass in direction
+    public void Initialize(Vector3 target, float tempo, string direction, bool holdNote = false, float holdTime = 0f)
     {
         targetPosition = target;
         speed = tempo;
-        direction = target.x < 0 ? "left" : "right"; // Determine direction based on target position
+        this.direction = direction.ToLower(); // Ensure consistency
         isHoldNote = holdNote;
         holdDuration = holdTime;
         holdProgress = 0f;
@@ -32,12 +33,7 @@ public class NoteMover : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-        // For hold notes, check if the player is holding the button
-        if (isHoldNote && holdProgress >= holdDuration)
-        {
-            Debug.Log("Hold note completed!");
-            Destroy(gameObject); // Destroy the note when the hold is complete
-        }
+        // Removed automatic destroy of hold notes — now handled externally!
     }
 
     public bool IsAtTarget(float threshold = 0.5f)
@@ -66,5 +62,15 @@ public class NoteMover : MonoBehaviour
     public bool IsHoldComplete()
     {
         return holdProgress >= holdDuration;
+    }
+
+    public float GetHoldProgress()
+    {
+        return holdProgress;
+    }
+
+    public float GetHoldDuration()
+    {
+        return holdDuration;
     }
 }
