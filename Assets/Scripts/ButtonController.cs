@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonController : MonoBehaviour
@@ -10,46 +8,62 @@ public class ButtonController : MonoBehaviour
 
     private bool isPressed = false;
 
+    [Header("Touch Settings")]
+    public LayerMask buttonLayer;
+
     void Start()
     {
         theSR = GetComponent<SpriteRenderer>();
+
+        if (theSR == null)
+        {
+            Debug.LogError("SpriteRenderer not found!");
+        }
+
+        if (defaultImage == null || pressedImage == null)
+        {
+            Debug.LogError("Please assign both defaultImage and pressedImage in the Inspector.");
+        }
     }
 
     void Update()
     {
-        // Check for touch input
         foreach (Touch touch in Input.touches)
         {
             if (touch.phase == TouchPhase.Began)
             {
-                // Check if the touch is on this object
                 Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, buttonLayer);
 
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
                     OnButtonPressed();
                 }
             }
-            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            else if ((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && isPressed)
             {
-                if (isPressed)
-                {
-                    OnButtonReleased();
-                }
+                OnButtonReleased();
             }
         }
     }
 
     public void OnButtonPressed()
     {
-        isPressed = true;
-        theSR.sprite = pressedImage;
+        if (!isPressed)
+        {
+            isPressed = true;
+
+            theSR.sprite = pressedImage;
+        }
     }
 
     public void OnButtonReleased()
     {
-        isPressed = false;
-        theSR.sprite = defaultImage;
+        if (isPressed)
+        {
+            isPressed = false;
+
+            theSR.sprite = defaultImage;
+        }
     }
 }
