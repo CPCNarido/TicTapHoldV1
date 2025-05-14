@@ -403,12 +403,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9742e173107736047910316baa938679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beatTempo: 100
+  beatTempo: 135
   leftNotePrefab: {fileID: 5858321408051594173, guid: ae94858769154ff4392e0a8b3aa213e9, type: 3}
   rightNotePrefab: {fileID: 5858321408051594173, guid: 0c7fd8b9b10bcff438624495cbce6158, type: 3}
   centerPosition: {fileID: 310714389}
   leftTarget: {fileID: 2038300067}
   rightTarget: {fileID: 113999419}
+  scoreText: {fileID: 0}
+  multiplierText: {fileID: 0}
+  noteHitSound: {fileID: 0}
+  holdNoteSound: {fileID: 0}
+  backgroundMusic: {fileID: 0}
+  musicStartDelay: 2
 --- !u!4 &487220652
 Transform:
   m_ObjectHideFlags: 0
@@ -457,6 +463,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultImage: {fileID: 8830745461517644737, guid: f8d21dd7bf61eb84d8a42227ca9d5505, type: 3}
   pressedImage: {fileID: -8433614544306415006, guid: cf15a4f9b8a606f4da994ac9cdb90c37, type: 3}
+  buttonLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!212 &560427941
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -652,6 +661,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultImage: {fileID: 6995148796251381243, guid: 7e2cfac3ad426b244a5b5c69cf17ec00, type: 3}
   pressedImage: {fileID: 6975071143988230214, guid: bd71efe7cc9bb9b4b89be780b53f6d4d, type: 3}
+  buttonLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!212 &855884192
 SpriteRenderer:
   m_ObjectHideFlags: 0

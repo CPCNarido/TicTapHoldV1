@@ -21,4 +21,4 @@
         { "direction": "left", "time": 19.5 },
         { "direction": "right", "time": 20.2 , "holdDuration": 10.0 }
     ]
-}
+}   
