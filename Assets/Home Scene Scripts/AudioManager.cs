@@ -1,39 +1,73 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-   [SerializeField] AudioSource musicSource; // Reference to the AudioSource component for music
-   [SerializeField] AudioSource SFXsource; // Reference to the AudioSource component for sound effects
+    [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource SFXsource;
 
-    public AudioClip background; // Reference to the background music clip
-    public AudioClip click; 
+    public AudioClip background;
+    public AudioClip click;
 
-    public static AudioManager instance; // Singleton instance of the AudioManager
+    public static AudioManager instance;
+
+    [SerializeField] private string[] excludedScenes; // Scene names to exclude music from
+
     private void Awake()
     {
-
         if (instance == null)
         {
-            instance = this; // Assign the current instance to the singleton instance
-            DontDestroyOnLoad(gameObject); // Destroy the duplicate instance if one already exists
-        } else{
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to scene change
+        }
+        else
+        {
             Destroy(gameObject);
         }
-        
     }
-    public void Start()
+
+    private void Start()
     {
-        // Play the background music at the start
-        musicSource.clip = background;
-        musicSource.Play();
+        HandleMusicForScene(SceneManager.GetActiveScene().name);
     }
-    
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        HandleMusicForScene(scene.name);
+    }
+
+    private void HandleMusicForScene(string sceneName)
+    {
+        foreach (string excluded in excludedScenes)
+        {
+            if (sceneName == excluded)
+            {
+                if (musicSource.isPlaying)
+                {
+                    musicSource.Stop();
+                }
+                return;
+            }
+        }
+
+        // Only play if not already playing
+        if (!musicSource.isPlaying)
+        {
+            musicSource.clip = background;
+            musicSource.Play();
+        }
+    }
+
     internal void PlaySFX(AudioClip clip)
     {
-        // Play the specified sound effect
         SFXsource.clip = clip;
         SFXsource.Play();
     }
-}
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded; // Clean up listener
+    }
+}

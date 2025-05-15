@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/GamePlay/MistyDrive/EasyMD.unity
+    guid: 0a03413f43d0f274b874bd5ca9b00bda
+  - enabled: 1
     path: Assets/Scenes/New Home Scene.unity
     guid: c8bd27f940e829e4396dcab632604c0f
   - enabled: 0
