@@ -38,6 +38,10 @@ public class BeatScroller : MonoBehaviour
     private int streak = 0;
     private const int streakThreshold = 10; // Increase multiplier every 10 successful hits
 
+    [Header("JSON Configuration")]
+    [SerializeField] private string jsonFileName = "mistydrive_easy.json"; // Input JSON file name in the Inspector
+
+
 
     void Start()
     {
@@ -132,7 +136,7 @@ public class BeatScroller : MonoBehaviour
 
     void LoadNoteConfig()
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "mistydrive_easy.json");
+        string filePath = Path.Combine(Application.streamingAssetsPath, jsonFileName);
         Debug.Log($"Loading note configuration from: {filePath}");
 
         if (File.Exists(filePath))
@@ -151,7 +155,7 @@ public class BeatScroller : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Note configuration file not found!");
+            Debug.LogError($"Note configuration file not found at: {filePath}");
         }
     }
 
