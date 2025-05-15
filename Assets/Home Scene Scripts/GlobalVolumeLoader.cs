@@ -8,7 +8,7 @@ public class GlobalVolumeLoader : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject); // Make this GameObject persistent across scenes
-    }
+    }   
 
     private void Start()
     {

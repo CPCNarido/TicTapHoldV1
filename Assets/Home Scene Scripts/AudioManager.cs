@@ -4,23 +4,31 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] AudioSource musicSource;
-    [SerializeField] AudioSource SFXsource;
+    [Header("Audio Sources")]
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource SFXsource;
 
+    [Header("Audio Clips")]
     public AudioClip background;
     public AudioClip click;
 
     public static AudioManager instance;
 
-    [SerializeField] private string[] excludedScenes; // Scene names to exclude music from
+    [Header("Excluded Scenes (no music)")]
+    [SerializeField] private string[] excludedScenes;
 
     private void Awake()
     {
+
+        // Ensure AudioManager is a singleton
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to scene change
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
+            Debug.Log("[AudioManager] Awake in scene: " + SceneManager.GetActiveScene().name);
+            TryPlayMusic(SceneManager.GetActiveScene().name); // Immediately handle current scene
         }
         else
         {
@@ -28,46 +36,64 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        HandleMusicForScene(SceneManager.GetActiveScene().name);
-    }
-
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        HandleMusicForScene(scene.name);
+        Debug.Log("[AudioManager] Scene loaded: " + scene.name);
+        TryPlayMusic(scene.name);
     }
 
-    private void HandleMusicForScene(string sceneName)
+    private void TryPlayMusic(string sceneName)
     {
+        if (musicSource == null)
+        {
+            Debug.LogError("[AudioManager] musicSource is not assigned!");
+            return;
+        }
+
+        if (background == null)
+        {
+            Debug.LogError("[AudioManager] Background clip not assigned!");
+            return;
+        }
+
+        // Stop if the scene is in the excluded list
         foreach (string excluded in excludedScenes)
         {
-            if (sceneName == excluded)
+            if (sceneName.Trim() == excluded.Trim())
             {
-                if (musicSource.isPlaying)
-                {
-                    musicSource.Stop();
-                }
+                Debug.Log("[AudioManager] Scene excluded from music. Stopping.");
+                if (musicSource.isPlaying) musicSource.Stop();
                 return;
             }
         }
 
-        // Only play if not already playing
+        // Only start if not already playing
         if (!musicSource.isPlaying)
         {
+            Debug.Log("[AudioManager] Playing music for scene: " + sceneName);
             musicSource.clip = background;
+            musicSource.loop = true;
             musicSource.Play();
+        }
+        else
+        {
+            Debug.Log("[AudioManager] Music already playing.");
         }
     }
 
-    internal void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioClip clip)
     {
-        SFXsource.clip = clip;
-        SFXsource.Play();
+        if (SFXsource == null)
+        {
+            Debug.LogError("[AudioManager] SFX source not assigned!");
+            return;
+        }
+
+        SFXsource.PlayOneShot(clip);
     }
 
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded; // Clean up listener
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

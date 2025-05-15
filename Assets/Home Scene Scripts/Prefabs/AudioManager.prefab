@@ -179,6 +179,7 @@ MonoBehaviour:
   SFXsource: {fileID: 5501434872483520919}
   background: {fileID: 8300000, guid: 0f2c9e9cadd13d441aafbd884353054c, type: 3}
   click: {fileID: 8300000, guid: bfca3ebfe4ef88348b2bbee4119d7eb6, type: 3}
+  excludedScenes: []
 --- !u!1 &5137795299367307848
 GameObject:
   m_ObjectHideFlags: 0
