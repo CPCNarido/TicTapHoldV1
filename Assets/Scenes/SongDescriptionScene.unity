@@ -413,7 +413,6 @@ GameObject:
   - component: {fileID: 523376635}
   - component: {fileID: 523376634}
   - component: {fileID: 523376633}
-  - component: {fileID: 523376636}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -535,23 +534,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523376631}
   m_CullTransparentMesh: 1
---- !u!114 &523376636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523376631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c11c273a94b374a851925eee70b73f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultImage: {fileID: 1057916044442835253, guid: 709025802555a15479ddc99b8d7bb276, type: 3}
-  pressedImage: {fileID: 7700382695247376890, guid: 54cd3942a1ddbb445ba1d670bd1235b8, type: 3}
-  buttonLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &604236251
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,7 +2024,6 @@ GameObject:
   - component: {fileID: 1267995108}
   - component: {fileID: 1267995107}
   - component: {fileID: 1267995106}
-  - component: {fileID: 1267995105}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -2070,23 +2051,6 @@ RectTransform:
   m_AnchoredPosition: {x: 191.4, y: -318.6805}
   m_SizeDelta: {x: 212.5309, y: 71.388}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1267995105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267995103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c11c273a94b374a851925eee70b73f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultImage: {fileID: 1057916044442835253, guid: 709025802555a15479ddc99b8d7bb276, type: 3}
-  pressedImage: {fileID: 7700382695247376890, guid: 54cd3942a1ddbb445ba1d670bd1235b8, type: 3}
-  buttonLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &1267995106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2193,7 +2157,6 @@ GameObject:
   - component: {fileID: 1279830564}
   - component: {fileID: 1279830563}
   - component: {fileID: 1279830562}
-  - component: {fileID: 1279830561}
   m_Layer: 5
   m_Name: Button (3)
   m_TagString: Untagged
@@ -2221,23 +2184,6 @@ RectTransform:
   m_AnchoredPosition: {x: 191.4, y: -324.7}
   m_SizeDelta: {x: 212.5309, y: 71.388}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1279830561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279830559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c11c273a94b374a851925eee70b73f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultImage: {fileID: 1057916044442835253, guid: 709025802555a15479ddc99b8d7bb276, type: 3}
-  pressedImage: {fileID: 7700382695247376890, guid: 54cd3942a1ddbb445ba1d670bd1235b8, type: 3}
-  buttonLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &1279830562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2882,7 +2828,6 @@ GameObject:
   - component: {fileID: 1871738548}
   - component: {fileID: 1871738547}
   - component: {fileID: 1871738546}
-  - component: {fileID: 1871738545}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -2910,23 +2855,6 @@ RectTransform:
   m_AnchoredPosition: {x: 191.4, y: -324.7}
   m_SizeDelta: {x: 212.5309, y: 71.388}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1871738545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1871738543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c11c273a94b374a851925eee70b73f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultImage: {fileID: 1057916044442835253, guid: 709025802555a15479ddc99b8d7bb276, type: 3}
-  pressedImage: {fileID: 7700382695247376890, guid: 54cd3942a1ddbb445ba1d670bd1235b8, type: 3}
-  buttonLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &1871738546
 MonoBehaviour:
   m_ObjectHideFlags: 0
