@@ -1,182 +1,227 @@
 {
-  "highScore": 0,
-  "notes": [
-    {
-      "direction": "left",
-      "time": 0.95
-    },
-    {
-      "direction": "left",
-      "time": 2.28
-    },
-    {
-      "direction": "left",
-      "time": 5.39
-    },
-    {
-      "direction": "right",
-      "time": 8.94
-    },
-    {
-      "direction": "right",
-      "time": 9.85
-    },
-    {
-      "direction": "right",
-      "time": 10.73
-    },
-    {
-      "direction": "left",
-      "time": 16.51
-    },
-    {
-      "direction": "right",
-      "time": 16.95
-    },
-    {
-      "direction": "right",
-      "time": 17.83
-    },
-    {
-      "direction": "left",
-      "time": 18.27
-    },
-    {
-      "direction": "left",
-      "time": 23.61
-    },
-    {
-      "direction": "left",
-      "time": 26.28
-    },
-    {
-      "direction": "left",
-      "time": 27.17
-    },
-    {
-      "direction": "left",
-      "time": 28.96
-    },
-    {
-      "direction": "right",
-      "time": 33.85
-    },
-    {
-      "direction": "left",
-      "time": 36.06
-    },
-    {
-      "direction": "right",
-      "time": 36.52
-    },
-    {
-      "direction": "right",
-      "time": 38.29
-    },
-    {
-      "direction": "left",
-      "time": 39.17
-    },
-    {
-      "direction": "right",
-      "time": 40.96
-    },
-    {
-      "direction": "right",
-      "time": 41.84
-    },
-    {
-      "direction": "right",
-      "time": 43.63
-    },
-    {
-      "direction": "right",
-      "time": 45.42
-    },
-    {
-      "direction": "right",
-      "time": 48.97
-    },
-    {
-      "direction": "left",
-      "time": 50.29
-    },
-    {
-      "direction": "right",
-      "time": 50.74
-    },
-    {
-      "direction": "right",
-      "time": 55.17
-    },
-    {
-      "direction": "left",
-      "time": 55.64
-    },
-    {
-      "direction": "left",
-      "time": 56.49
-    },
-    {
-      "direction": "left",
-      "time": 58.28
-    },
-    {
-      "direction": "left",
-      "time": 58.72
-    },
-    {
-      "direction": "right",
-      "time": 64.09
-    },
-    {
-      "direction": "left",
-      "time": 67.18
-    },
-    {
-      "direction": "right",
-      "time": 67.64
-    },
-    {
-      "direction": "right",
-      "time": 68.52
-    },
-    {
-      "direction": "right",
-      "time": 69.4
-    },
-    {
-      "direction": "right",
-      "time": 75.63
-    },
-    {
-      "direction": "right",
-      "time": 76.53
-    },
-    {
-      "direction": "left",
-      "time": 79.64
-    },
-    {
-      "direction": "left",
-      "time": 81.41
-    },
-    {
-      "direction": "left",
-      "time": 82.31
-    },
-    {
-      "direction": "left",
-      "time": 83.64
-    },
-    {
-      "direction": "right",
-      "time": 84.54
-    },
-    {
-      "direction": "left",
-      "time": 86.75
+    "notes": [
+        {
+            "direction": "left",
+            "time": 0.949999988079071,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 2.2799999713897707,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 5.389999866485596,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 8.9399995803833,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 9.850000381469727,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 10.729999542236329,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 16.510000228881837,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 16.950000762939454,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 17.829999923706056,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 18.270000457763673,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 23.610000610351564,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 26.280000686645509,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 27.170000076293947,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 28.959999084472658,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 33.849998474121097,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 36.060001373291019,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 36.52000045776367,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 38.290000915527347,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 39.16999816894531,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 40.959999084472659,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 41.84000015258789,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 43.630001068115237,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 45.41999816894531,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 48.970001220703128,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 50.290000915527347,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 50.7400016784668,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 55.16999816894531,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 55.63999938964844,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 56.4900016784668,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 58.279998779296878,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 58.720001220703128,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 64.08999633789063,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 67.18000030517578,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 67.63999938964844,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 68.5199966430664,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 69.4000015258789,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 75.62999725341797,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 76.52999877929688,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 79.63999938964844,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 81.41000366210938,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 82.30999755859375,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 83.63999938964844,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "right",
+            "time": 84.54000091552735,
+            "holdDuration": 0.0
+        },
+        {
+            "direction": "left",
+            "time": 86.75,
+            "holdDuration": 0.0
+        }
+    ],
+    "highScore": {
+        "best": 7900
     }
-  ]
-
 }

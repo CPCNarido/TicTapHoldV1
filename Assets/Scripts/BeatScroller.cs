@@ -10,12 +10,11 @@ public class BeatScroller : MonoBehaviour
     public GameObject leftNotePrefab;
     public GameObject rightNotePrefab;
     public Transform centerPosition;
-    public Transform leftTarget;
-    public Transform rightTarget;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI multiplierText;
     private bool gameEnded = false;
 
+    public FeedbackManager feedbackManager;
 
     public AudioSource noteHitSound;
     public AudioSource holdNoteSound;
@@ -41,14 +40,19 @@ public class BeatScroller : MonoBehaviour
     [Header("JSON Configuration")]
     [SerializeField] private string jsonFileName = "mistydrive_easy.json"; // Input JSON file name in the Inspector
 
+    // Button positions and scales
+    private Vector2 leftButtonPos = new Vector2(-9.5f, 0f);
+    private Vector2 rightButtonPos = new Vector2(9.5f, 0f);
+    private Vector2 buttonScale = new Vector2(1.9646f, 2.475f);
 
+    // Hit windows (tweak as needed)
+    private float perfectRadius = 0.5f * 1.9646f; // Half width of button for perfect
+    private float earlyLateRadius = 1.5f * 1.9646f; // A bit wider for early/late
 
     void Start()
     {
         if (scoreText != null)
-        scoreText.text = "0";
-
-
+            scoreText.text = "0";
 
         beatTempo = beatTempo / 60f;
 
@@ -75,7 +79,7 @@ public class BeatScroller : MonoBehaviour
         else
         {
             float elapsedTime = Time.timeSinceLevelLoad - startTime;
-    
+
             // Start background music after delay
             if (!musicStarted && elapsedTime >= musicStartDelay)
             {
@@ -86,13 +90,13 @@ public class BeatScroller : MonoBehaviour
                     Debug.Log("Music started.");
                 }
             }
-    
+
             if (noteConfig == null || noteConfig.notes == null)
             {
                 Debug.LogError("NoteConfig is null or not properly loaded!");
                 return;
             }
-    
+
             // Continue spawning notes immediately after game start
             while (noteIndex < noteConfig.notes.Count &&
                 elapsedTime >= noteConfig.notes[noteIndex].time)
@@ -100,7 +104,7 @@ public class BeatScroller : MonoBehaviour
                 SpawnNote(noteConfig.notes[noteIndex], elapsedTime);
                 noteIndex++;
             }
-    
+
             // Handle touch input
             if (Input.touchCount > 0)
             {
@@ -119,19 +123,18 @@ public class BeatScroller : MonoBehaviour
                     }
                 }
             }
-    
+
             // Remove notes that are destroyed after moving off-screen
             activeNotes.RemoveAll(note => note == null);
         }
 
         if (!gameEnded && hasStarted && noteIndex >= noteConfig.notes.Count && activeNotes.Count == 0)
-    {
-        Debug.Log("All notes cleared. Ending game...");
-        EndGame();
-        hasStarted = false;
-        gameEnded = true;
-    }
-
+        {
+            Debug.Log("All notes cleared. Ending game...");
+            EndGame();
+            hasStarted = false;
+            gameEnded = true;
+        }
     }
 
     void LoadNoteConfig()
@@ -159,88 +162,52 @@ public class BeatScroller : MonoBehaviour
         }
     }
 
-void SpawnNote(Note note, float elapsedTime)
-{
-    GameObject prefab = note.direction == "left" ? leftNotePrefab : rightNotePrefab;
-    if (prefab == null)
+    void SpawnNote(Note note, float elapsedTime)
     {
-        Debug.LogError($"Prefab for {note.direction} notes is not assigned!");
-        return;
-    }
-
-    // Start position (center of the screen)
-    Vector3 spawnPosition = new Vector3(centerPosition.position.x, centerPosition.position.y, -5f);
-
-    // Target position based on the note direction
-    Vector3 targetPosition = note.direction == "left"
-        ? new Vector3(leftTarget.position.x, leftTarget.position.y, -5f)
-        : new Vector3(rightTarget.position.x, rightTarget.position.y, -5f);
-
-    // Distance and travel time for the note (based on the beatTempo)
-    float distanceToTarget = Mathf.Abs(spawnPosition.x - targetPosition.x);
-    float travelTime = distanceToTarget / beatTempo;
-    float adjustedSpawnTime = note.time - travelTime;
-
-    // Only spawn the note when it's time
-    if (elapsedTime < adjustedSpawnTime)
-        return;
-
-    // Instantiate the note prefab
-    GameObject spawnedNote = Instantiate(prefab, spawnPosition, Quaternion.identity);
-
-    // Access the NoteMover component to initialize the note's movement
-    NoteMover noteMover = spawnedNote.GetComponent<NoteMover>();
-
-    if (noteMover != null)
-    {
-        bool isHoldNote = note.holdDuration > 0;
-        noteMover.Initialize(targetPosition, beatTempo, note.direction, isHoldNote, note.holdDuration);
-
-        // If it's a hold note, we scale it based on the duration
-        if (isHoldNote)
+        GameObject prefab = note.direction == "left" ? leftNotePrefab : rightNotePrefab;
+        if (prefab == null)
         {
-            float scaleFactor = note.holdDuration * beatTempo;
-            spawnedNote.transform.localScale = new Vector3(scaleFactor, spawnedNote.transform.localScale.y, spawnedNote.transform.localScale.z);
+            Debug.LogError($"Prefab for {note.direction} notes is not assigned!");
+            return;
         }
 
-        // Add to the list of active notes
-        activeNotes.Add(spawnedNote);
-    }
-    else
-    {
-        Debug.LogError("Spawned note does not have a NoteMover component!");
-    }
-}
+        Vector3 spawnPosition = new Vector3(centerPosition.position.x, centerPosition.position.y, -5f);
 
-    public void RemoveNoteByDirection(string direction)
-    {
-        for (int i = 0; i < activeNotes.Count; i++)
+        GameObject spawnedNote = Instantiate(prefab, spawnPosition, Quaternion.identity);
+
+        NoteMover noteMover = spawnedNote.GetComponent<NoteMover>();
+
+        if (noteMover != null)
         {
-            GameObject note = activeNotes[i];
-            NoteMover noteMover = note.GetComponent<NoteMover>();
-            if (noteMover != null && noteMover.GetDirection() == direction)
+            bool isHoldNote = note.holdDuration > 0;
+            // You can pass button positions if needed for NoteMover, or just use them in BeatScroller
+
+            Vector3 targetPos = note.direction == "left"
+                ? new Vector3(leftButtonPos.x, leftButtonPos.y, -5f)
+                : new Vector3(rightButtonPos.x, rightButtonPos.y, -5f);
+
+            noteMover.Initialize(targetPos, targetPos, targetPos, beatTempo, note.direction, isHoldNote, note.holdDuration);
+
+            if (isHoldNote)
             {
-                Debug.Log($"Removing {direction} note.");
-                activeNotes.RemoveAt(i);
-                Destroy(note);
-                AddScore(50); // Add score for tap note
-                Debug.Log($"Note removed. Current score: {score}");
-
-                if (noteHitSound != null)
-                {
-                    noteHitSound.Play();
-                }
-
-                return;
+                float scaleFactor = note.holdDuration * beatTempo;
+                spawnedNote.transform.localScale = new Vector3(scaleFactor, spawnedNote.transform.localScale.y, spawnedNote.transform.localScale.z);
             }
+
+            activeNotes.Add(spawnedNote);
         }
-        Debug.Log($"No {direction} note to remove.");
+        else
+        {
+            Debug.LogError("Spawned note does not have a NoteMover component!");
+        }
     }
 
     void HandleHoldNote(string direction, float deltaTime)
     {
         Debug.Log($"Checking for {direction} note to hold...");
 
+        Vector2 buttonPos = direction == "left" ? leftButtonPos : rightButtonPos;
+
         for (int i = 0; i < activeNotes.Count; i++)
         {
             GameObject note = activeNotes[i];
@@ -248,43 +215,83 @@ void SpawnNote(Note note, float elapsedTime)
 
             if (noteMover != null && noteMover.GetDirection() == direction)
             {
-                Debug.Log($"Found {direction} note. IsAtTarget: {noteMover.IsAtTarget()}, IsHoldNote: {noteMover.IsHoldNote()}");
+                Vector2 notePos = note.transform.position;
+                float dist = Vector2.Distance(notePos, buttonPos);
 
-                if (noteMover.IsAtTarget())
+                string accuracy = "";
+                int scoreToAdd = 0;
+
+                if (dist <= perfectRadius)
                 {
-                    if (noteMover.IsHoldNote())
+                    accuracy = "Perfect";
+                    scoreToAdd = 100;
+                }
+                else if (dist <= earlyLateRadius)
+                {
+                    // Determine if it's early or late based on x position
+                    if ((direction == "left" && notePos.x > buttonPos.x) ||
+                        (direction == "right" && notePos.x < buttonPos.x))
                     {
-                        noteMover.IncrementHoldProgress(deltaTime);
-                        Debug.Log($"Holding {direction} note. Progress: {noteMover.GetHoldProgress():F2}/{noteMover.GetHoldDuration():F2}");
-
-                        if (noteMover.IsHoldComplete())
-                        {
-                            Debug.Log($"Hold note {direction} completed!");
-                            activeNotes.RemoveAt(i);
-                            Destroy(note);
-
-                            AddScore(100);
-                            if (holdNoteSound != null) holdNoteSound.Play();
-
-                            return;
-                        }
+                        accuracy = "Early";
                     }
                     else
                     {
-                        Debug.Log($"Tap note {direction} hit!");
+                        accuracy = "Late";
+                    }
+                    scoreToAdd = 75;
+                }
+                else
+                {
+                    continue; // Not in any hit window
+                }
+
+                if (noteMover.IsHoldNote())
+                {
+                    noteMover.IncrementHoldProgress(deltaTime);
+                    Debug.Log($"Holding {direction} note. Progress: {noteMover.GetHoldProgress():F2}/{noteMover.GetHoldDuration():F2}");
+
+                    if (noteMover.IsHoldComplete())
+                    {
+                        Debug.Log($"Hold note {direction} completed!");
                         activeNotes.RemoveAt(i);
                         Destroy(note);
 
-                        AddScore(50);
-                        if (noteHitSound != null) noteHitSound.Play();
-
+                        AddScore(scoreToAdd);
+                        feedbackManager.ShowFeedback(direction, accuracy);
+                        if (holdNoteSound != null) holdNoteSound.Play();
                         return;
                     }
+                }
+                else
+                {
+                    Debug.Log($"Tap note {direction} hit!");
+                    activeNotes.RemoveAt(i);
+                    Destroy(note);
+
+                    AddScore(scoreToAdd);
+                    feedbackManager.ShowFeedback(direction, accuracy);
+                    if (noteHitSound != null) noteHitSound.Play();
+                    return;
                 }
             }
         }
 
         Debug.Log($"No valid {direction} note found to hold/tap.");
+    }
+
+    private void HandleNoteScored(string direction, string accuracy)
+    {
+        int points = 0;
+        switch (accuracy)
+        {
+            case "Perfect": points = 100; break;
+            case "Early": points = 75; break;
+            case "Late": points = 50; break;
+        }
+
+        AddScore(points);
+
+        feedbackManager.ShowFeedback(direction, accuracy); // ← Show text
     }
 
     void AddScore(int baseScore)
@@ -320,11 +327,13 @@ void SpawnNote(Note note, float elapsedTime)
     }
     void OnEnable()
     {
+        NoteMover.OnNoteHit += HandleNoteScored;
         NoteMover.OnNoteMissed += HandleNoteMissed;
     }
 
     void OnDisable()
     {
+        NoteMover.OnNoteHit += HandleNoteScored;
         NoteMover.OnNoteMissed -= HandleNoteMissed;
     }
 
@@ -333,8 +342,6 @@ void SpawnNote(Note note, float elapsedTime)
         Debug.Log($"Note missed on {direction} side. Resetting multiplier.");
         ResetStreak();
     }
-
-
 
     void ResetStreak()
     {
@@ -385,8 +392,6 @@ void SpawnNote(Note note, float elapsedTime)
             Debug.LogError("Failed to parse JSON or NoteConfig is null.");
         }
     }
-
-
 
     void EndGame()
     {

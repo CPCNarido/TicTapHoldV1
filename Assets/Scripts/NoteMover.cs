@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class NoteMover : MonoBehaviour
@@ -12,10 +13,17 @@ public class NoteMover : MonoBehaviour
 
     public delegate void NoteMissedHandler(string direction);
     public static event NoteMissedHandler OnNoteMissed;
+    public static event Action<string, string> OnNoteHit;
+    public static event Action<string, string> NoteScored;
 
-    public void Initialize(Vector3 target, float tempo, string direction, bool holdNote = false, float holdTime = 0f)
+    private Vector3 earlyTarget, perfectTarget, lateTarget;
+
+    public void Initialize(Vector3 early, Vector3 perfect, Vector3 late, float tempo, string direction, bool holdNote = false, float holdTime = 0f)
     {
-        targetPosition = target;
+        earlyTarget = early;
+        perfectTarget = perfect;
+        lateTarget = late;
+        targetPosition = perfect;
         speed = tempo;
         this.direction = direction.ToLower();
         isHoldNote = holdNote;
@@ -27,35 +35,42 @@ public class NoteMover : MonoBehaviour
     {
         if (!isMovingOffScreen)
         {
-            // Move towards the target position
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-            // Check if the note has reached the target
             if (IsAtTarget() && !isHoldNote)
             {
-                // Start moving off-screen if it's not a hold note
                 StartMovingOffScreen();
             }
         }
         else
         {
-            // Move off-screen
             Vector3 offScreenPosition = direction == "left" ? new Vector3(-15, 0, transform.position.z) : new Vector3(15, 0, transform.position.z);
             transform.position = Vector3.MoveTowards(transform.position, offScreenPosition, speed * Time.deltaTime);
 
-            // Check if the note has reached the reset position
             if ((direction == "left" && transform.position.x <= -11) ||
                 (direction == "right" && transform.position.x >= 11))
             {
-                OnNoteMissed?.Invoke(direction); // Notify that the note was missed
+                OnNoteMissed?.Invoke(direction);
             }
 
-            // Destroy the note once it reaches the off-screen position
             if (Vector3.Distance(transform.position, offScreenPosition) < 0.1f)
             {
                 Destroy(gameObject);
             }
         }
+    }
+
+    public string GetAccuracyZone()
+    {
+        float distEarly = Vector3.Distance(transform.position, earlyTarget);
+        float distPerfect = Vector3.Distance(transform.position, perfectTarget);
+        float distLate = Vector3.Distance(transform.position, lateTarget);
+
+        float minDist = Mathf.Min(distEarly, distPerfect, distLate);
+
+        if (minDist == distPerfect) return "Perfect";
+        if (minDist == distEarly) return "Early";
+        return "Late";
     }
 
     public bool IsAtTarget(float threshold = 0.5f)
@@ -86,6 +101,11 @@ public class NoteMover : MonoBehaviour
     public bool IsHoldNote()
     {
         return isHoldNote;
+    }
+
+    public void TriggerNoteHit(string accuracy)
+    {
+        OnNoteHit?.Invoke(direction, accuracy);
     }
 
     public void IncrementHoldProgress(float deltaTime)

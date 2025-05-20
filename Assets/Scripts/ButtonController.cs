@@ -52,8 +52,22 @@ public class ButtonController : MonoBehaviour
         if (!isPressed)
         {
             isPressed = true;
-
             theSR.sprite = pressedImage;
+
+            // Check for overlapping notes
+            Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, theSR.bounds.size, 0f);
+            foreach (var hit in hits)
+            {
+                NoteMover note = hit.GetComponent<NoteMover>();
+                if (note != null && note.IsAtTarget())
+                {
+                    // Calculate accuracy and trigger scoring
+                    string accuracy = note.GetAccuracyZone();
+                    note.TriggerNoteHit(accuracy);
+                    note.StartMovingOffScreen();
+                    break; // Only process one note per press
+                }
+            }
         }
     }
 
