@@ -8,8 +8,9 @@ public class NoteConfig
     public HighScore highScore; // High score data
 }
 
-[Serializable]
+[System.Serializable]
 public class HighScore
 {
     public int best;
+    public int current;
 }

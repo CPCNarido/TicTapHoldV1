@@ -6,6 +6,7 @@ using TMPro;
 
 public class BeatScroller : MonoBehaviour
 {
+    [SerializeField] private string nextSceneName = "ResultScene"; // Set this in the Inspector
     public float beatTempo; // BPM
     public GameObject leftNotePrefab;
     public GameObject rightNotePrefab;
@@ -391,37 +392,42 @@ public class BeatScroller : MonoBehaviour
 
     public void SaveScore()
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "mistydrive_easy.json");
-
+        string filePath = Path.Combine(Application.streamingAssetsPath, jsonFileName);
+    
         if (!File.Exists(filePath))
         {
             Debug.LogError($"Score file not found at: {filePath}");
             return;
         }
-
+    
         string json = File.ReadAllText(filePath);
         NoteConfig config = JsonUtility.FromJson<NoteConfig>(json);
-
+    
         if (config != null)
         {
-            // Create highScore object if it doesn't exist
+            // Ensure highScore object exists
             if (config.highScore == null)
             {
                 config.highScore = new HighScore();
             }
-
-            Debug.Log($"Current high score: {config.highScore.best}, New score: {score}");
-
+    
+            // Always update currentScore
+            config.highScore.current = score;
+    
+            // Update best (high score) if needed
             if (config.highScore.best < score)
             {
                 config.highScore.best = score;
-                File.WriteAllText(filePath, JsonUtility.ToJson(config, true));
                 Debug.Log("New high score saved!");
             }
             else
             {
                 Debug.Log("Score is not higher than the current high score. No update made.");
             }
+    
+            // Save back to JSON
+            File.WriteAllText(filePath, JsonUtility.ToJson(config, true));
+            Debug.Log($"Scores saved! Current: {config.highScore.current}, High: {config.highScore.best}");
         }
         else
         {
@@ -433,6 +439,18 @@ public class BeatScroller : MonoBehaviour
     {
         SaveScore();
         Debug.Log("Game ended. Score saved.");
+    
+        // Load the next scene after a short delay (optional)
+        StartCoroutine(LoadNextSceneAfterDelay(1f));
+    }
+    
+    private IEnumerator LoadNextSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay); // Use WaitForSecondsRealtime so it works even if Time.timeScale == 0
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneName);
+        }
     }
 
     IEnumerator SpawnHoldSegments(GameObject parentNote, float holdDuration)

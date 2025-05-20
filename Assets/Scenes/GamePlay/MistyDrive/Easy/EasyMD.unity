@@ -908,7 +908,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 330154032}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2131475807}
+        m_TargetAssemblyTypeName: LoadSceneButton, Assembly-CSharp
+        m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &330154032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1083,6 +1095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9742e173107736047910316baa938679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextSceneName: EasyMDResult
   beatTempo: 135
   leftNotePrefab: {fileID: 5858321408051594173, guid: ae94858769154ff4392e0a8b3aa213e9, type: 3}
   rightNotePrefab: {fileID: 5858321408051594173, guid: 0c7fd8b9b10bcff438624495cbce6158, type: 3}

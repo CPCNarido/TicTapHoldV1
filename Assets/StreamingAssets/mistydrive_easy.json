@@ -222,6 +222,7 @@
         }
     ],
     "highScore": {
-        "best": 7900
+        "best": 7900,
+        "current": 1725
     }
 }
