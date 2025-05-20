@@ -35,6 +35,7 @@ public class BeatScroller : MonoBehaviour
     private int score = 0;
     private int multiplier = 1;
     private int streak = 0;
+    private int perfectStreak = 0;
     private const int streakThreshold = 10; // Increase multiplier every 10 successful hits
 
     [Header("JSON Configuration")]
@@ -205,77 +206,90 @@ public class BeatScroller : MonoBehaviour
     void HandleHoldNote(string direction, float deltaTime)
     {
         Debug.Log($"Checking for {direction} note to hold...");
-
+    
         Vector2 buttonPos = direction == "left" ? leftButtonPos : rightButtonPos;
-
-        for (int i = 0; i < activeNotes.Count; i++)
+    
+        GameObject closestNote = null;
+        NoteMover closestNoteMover = null;
+        float closestDist = float.MaxValue;
+        string accuracy = "";
+        int scoreToAdd = 0;
+    
+        // Find the closest note in the hit window
+        foreach (GameObject note in activeNotes)
         {
-            GameObject note = activeNotes[i];
             NoteMover noteMover = note.GetComponent<NoteMover>();
-
             if (noteMover != null && noteMover.GetDirection() == direction)
             {
                 Vector2 notePos = note.transform.position;
                 float dist = Vector2.Distance(notePos, buttonPos);
-
-                string accuracy = "";
-                int scoreToAdd = 0;
-
+    
                 if (dist <= perfectRadius)
                 {
-                    accuracy = "Perfect";
-                    scoreToAdd = 100;
+                    if (dist < closestDist)
+                    {
+                        closestNote = note;
+                        closestNoteMover = noteMover;
+                        closestDist = dist;
+                        accuracy = "Perfect";
+                        scoreToAdd = 100;
+                    }
                 }
                 else if (dist <= earlyLateRadius)
                 {
-                    // Determine if it's early or late based on x position
-                    if ((direction == "left" && notePos.x > buttonPos.x) ||
-                        (direction == "right" && notePos.x < buttonPos.x))
+                    if (dist < closestDist)
                     {
-                        accuracy = "Early";
+                        closestNote = note;
+                        closestNoteMover = noteMover;
+                        closestDist = dist;
+                        // Determine if it's early or late based on x position
+                        if ((direction == "left" && notePos.x > buttonPos.x) ||
+                            (direction == "right" && notePos.x < buttonPos.x))
+                        {
+                            accuracy = "Early";
+                        }
+                        else
+                        {
+                            accuracy = "Late";
+                        }
+                        scoreToAdd = 75;
                     }
-                    else
-                    {
-                        accuracy = "Late";
-                    }
-                    scoreToAdd = 75;
-                }
-                else
-                {
-                    continue; // Not in any hit window
-                }
-
-                if (noteMover.IsHoldNote())
-                {
-                    noteMover.IncrementHoldProgress(deltaTime);
-                    Debug.Log($"Holding {direction} note. Progress: {noteMover.GetHoldProgress():F2}/{noteMover.GetHoldDuration():F2}");
-
-                    if (noteMover.IsHoldComplete())
-                    {
-                        Debug.Log($"Hold note {direction} completed!");
-                        activeNotes.RemoveAt(i);
-                        Destroy(note);
-
-                        AddScore(scoreToAdd);
-                        feedbackManager.ShowFeedback(direction, accuracy);
-                        if (holdNoteSound != null) holdNoteSound.Play();
-                        return;
-                    }
-                }
-                else
-                {
-                    Debug.Log($"Tap note {direction} hit!");
-                    activeNotes.RemoveAt(i);
-                    Destroy(note);
-
-                    AddScore(scoreToAdd);
-                    feedbackManager.ShowFeedback(direction, accuracy);
-                    if (noteHitSound != null) noteHitSound.Play();
-                    return;
                 }
             }
         }
-
+    
+        // Only process the closest note
+        if (closestNote != null && closestNoteMover != null)
+        {
+            if (closestNoteMover.IsHoldNote())
+            {
+                closestNoteMover.IncrementHoldProgress(deltaTime);
+                Debug.Log($"Holding {direction} note. Progress: {closestNoteMover.GetHoldProgress():F2}/{closestNoteMover.GetHoldDuration():F2}");
+    
+                if (closestNoteMover.IsHoldComplete())
+                {
+                    Debug.Log($"Hold note {direction} completed!");
+                    activeNotes.Remove(closestNote);
+                    Destroy(closestNote);
+    
+                    AddScore(scoreToAdd);
+                    feedbackManager.ShowFeedback(direction, accuracy);
+                    if (holdNoteSound != null) holdNoteSound.Play();
+                }
+            }
+            else
+            {
+                Debug.Log($"Tap note {direction} hit!");
+                activeNotes.Remove(closestNote);
+                Destroy(closestNote);
+    
+                AddScore(scoreToAdd);
+                feedbackManager.ShowFeedback(direction, accuracy);
+                if (noteHitSound != null) noteHitSound.Play();
+            }
+            return; // Only one note handled per press
+        }
+    
         Debug.Log($"No valid {direction} note found to hold/tap.");
     }
 
@@ -284,14 +298,31 @@ public class BeatScroller : MonoBehaviour
         int points = 0;
         switch (accuracy)
         {
-            case "Perfect": points = 100; break;
-            case "Early": points = 75; break;
-            case "Late": points = 50; break;
+            case "Perfect":
+                points = 100;
+                perfectStreak++;
+                break;
+            case "Early":
+                points = 75;
+                perfectStreak = 0;
+                break;
+            case "Late":
+                points = 50;
+                perfectStreak = 0;
+                break;
+            default:
+                perfectStreak = 0;
+                break;
         }
-
+    
         AddScore(points);
-
-        feedbackManager.ShowFeedback(direction, accuracy); // ← Show text
+    
+        // Show "Perfect xN" if streak is 2 or more, otherwise just show the accuracy
+        string feedback = accuracy;
+        if (accuracy == "Perfect" && perfectStreak > 1)
+            feedback = $"Perfect x{perfectStreak}";
+    
+        feedbackManager.ShowFeedback(direction, feedback);
     }
 
     void AddScore(int baseScore)
@@ -339,6 +370,7 @@ public class BeatScroller : MonoBehaviour
 
     void HandleNoteMissed(string direction)
     {
+        perfectStreak = 0;
         Debug.Log($"Note missed on {direction} side. Resetting multiplier.");
         ResetStreak();
     }
