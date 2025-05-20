@@ -52,6 +52,8 @@ public class BeatScroller : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
+
         if (scoreText != null)
             scoreText.text = "0";
 
