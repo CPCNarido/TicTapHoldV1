@@ -269,7 +269,8 @@ public class BeatScroller : MonoBehaviour
                 if (closestNoteMover.IsHoldComplete())
                 {
                     Debug.Log($"Hold note {direction} completed!");
-                    activeNotes.Remove(closestNote);
+                    if (activeNotes.Contains(closestNote))
+                        activeNotes.Remove(closestNote);
                     Destroy(closestNote);
     
                     AddScore(scoreToAdd);
@@ -280,7 +281,8 @@ public class BeatScroller : MonoBehaviour
             else
             {
                 Debug.Log($"Tap note {direction} hit!");
-                activeNotes.Remove(closestNote);
+                if (activeNotes.Contains(closestNote))
+                    activeNotes.Remove(closestNote);
                 Destroy(closestNote);
     
                 AddScore(scoreToAdd);
