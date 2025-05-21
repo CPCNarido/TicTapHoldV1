@@ -4314,8 +4314,8 @@ MonoBehaviour:
   toggleGroup: {fileID: 1967764281}
   sceneNames:
   - EasyMD
-  - 
-  - 
+  - MediumMD
+  - HardMD
 --- !u!1 &2043274076
 GameObject:
   m_ObjectHideFlags: 0
