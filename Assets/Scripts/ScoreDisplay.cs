@@ -1,14 +1,18 @@
 using System.IO;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ScoreDisplay : MonoBehaviour
 {
-    [SerializeField] private string jsonFileName = "mistydrive_easy.json"; // Set in Inspector
+    [SerializeField] private string jsonFileName = "mistydrive_easy.json";
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
-    public float animationDuration = 1.0f; // Duration of the animation in seconds
+    public float animationDuration = 1.0f;
+
+    public ScoreBasedGifPlayer gifPlayer; // Reference to your ScoreBasedGifPlayer
 
     void Start()
     {
@@ -24,6 +28,7 @@ public class ScoreDisplay : MonoBehaviour
             Debug.LogError($"Score file not found at: {filePath}");
             scoreText.text = "Score: 0";
             highScoreText.text = "High Score: 0";
+            if (gifPlayer != null) gifPlayer.SetScore(0);
             return;
         }
 
@@ -41,11 +46,16 @@ public class ScoreDisplay : MonoBehaviour
                 highScoreText.text = "New Highscore!!";
             else
                 highScoreText.text = $"High Score: {best}";
+
+            // Pass the score to the gif player
+            if (gifPlayer != null)
+                gifPlayer.SetScore(score);
         }
         else
         {
             scoreText.text = "Score: 0";
             highScoreText.text = "High Score: 0";
+            if (gifPlayer != null) gifPlayer.SetScore(0);
         }
     }
 
