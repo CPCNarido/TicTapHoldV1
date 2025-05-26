@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 52779957}
   - component: {fileID: 52779960}
   m_Layer: 5
-  m_Name: Level 3
+  m_Name: Shadow Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1048,7 +1048,7 @@ GameObject:
   - component: {fileID: 977911685}
   - component: {fileID: 977911688}
   m_Layer: 5
-  m_Name: Level 1
+  m_Name: Misty Drive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1219,7 +1219,7 @@ GameObject:
   - component: {fileID: 989840582}
   - component: {fileID: 989840585}
   m_Layer: 5
-  m_Name: Level 2
+  m_Name: Not A Funk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1390,7 +1390,7 @@ GameObject:
   - component: {fileID: 1026749490}
   - component: {fileID: 1026749489}
   m_Layer: 5
-  m_Name: Level 9
+  m_Name: Get Lucky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1561,7 +1561,7 @@ GameObject:
   - component: {fileID: 1241712807}
   - component: {fileID: 1241712806}
   m_Layer: 5
-  m_Name: Level 5
+  m_Name: Fresh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2290,7 +2290,7 @@ GameObject:
   - component: {fileID: 1622805267}
   - component: {fileID: 1622805266}
   m_Layer: 5
-  m_Name: Level 6
+  m_Name: Sequences
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2536,7 +2536,7 @@ GameObject:
   - component: {fileID: 1800691635}
   - component: {fileID: 1800691634}
   m_Layer: 5
-  m_Name: Level 8
+  m_Name: Funky Town
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2707,7 +2707,7 @@ GameObject:
   - component: {fileID: 1870674119}
   - component: {fileID: 1870674122}
   m_Layer: 5
-  m_Name: Level 4
+  m_Name: Jupiter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2878,7 +2878,7 @@ GameObject:
   - component: {fileID: 2101492362}
   - component: {fileID: 2101492361}
   m_Layer: 5
-  m_Name: Level 7
+  m_Name: Matahari
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
