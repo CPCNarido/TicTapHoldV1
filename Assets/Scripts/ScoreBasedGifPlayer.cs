@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class ScoreBasedGifPlayer : MonoBehaviour
 {
-    public Sprite[] highScoreFrames;    // For score >= 7000
-    public Sprite[] midScoreFrames;     // For 4999 <= score < 7000
-    public Sprite[] lowScoreFrames;     // For score <= 4998
+    public Sprite[] highScoreFrames;    // For percentage >= 95
+    public Sprite[] midScoreFrames;     // For 85 <= percentage < 95
+    public Sprite[] lowScoreFrames;     // For 75 <= percentage < 85
+    public Sprite[] defeatFrames;       // For percentage < 75
     public float framesPerSecond = 12f;
+
+    public AudioSource victoryBGM;      // Assign in Inspector (for any non-defeat)
+    public AudioSource defeatBGM;       // Assign in Inspector (for defeat only)
 
     private SpriteRenderer spriteRenderer;
     private Sprite[] currentFrames;
@@ -13,15 +17,32 @@ public class ScoreBasedGifPlayer : MonoBehaviour
     private float timer;
     private bool animationFinished = false;
 
-    // Call this with the final score to set the animation
-    public void SetScore(int score)
+    public void SetScore(int percentage)
     {
-        if (score >= 7000)
+        // Stop both BGMs before playing the correct one
+        if (victoryBGM != null && victoryBGM.isPlaying) victoryBGM.Stop();
+        if (defeatBGM != null && defeatBGM.isPlaying) defeatBGM.Stop();
+
+        if (percentage >= 95)
+        {
             currentFrames = highScoreFrames;
-        else if (score >= 4999)
+            if (victoryBGM != null) victoryBGM.Play();
+        }
+        else if (percentage >= 85)
+        {
             currentFrames = midScoreFrames;
-        else
+            if (victoryBGM != null) victoryBGM.Play();
+        }
+        else if (percentage >= 75)
+        {
             currentFrames = lowScoreFrames;
+            if (victoryBGM != null) victoryBGM.Play();
+        }
+        else
+        {
+            currentFrames = defeatFrames;
+            if (defeatBGM != null) defeatBGM.Play();
+        }
 
         currentFrame = 0;
         timer = 0f;
@@ -33,7 +54,6 @@ public class ScoreBasedGifPlayer : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        // Optionally, set a default animation
         SetScore(0);
     }
 

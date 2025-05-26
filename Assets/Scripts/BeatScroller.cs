@@ -43,13 +43,14 @@ public class BeatScroller : MonoBehaviour
     [SerializeField] private string jsonFileName = "mistydrive_easy.json"; // Input JSON file name in the Inspector
 
     // Button positions and scales
-    private Vector2 leftButtonPos = new Vector2(-9.5f, 0f);
-    private Vector2 rightButtonPos = new Vector2(9.5f, 0f);
-    private Vector2 buttonScale = new Vector2(1.9646f, 2.475f);
+    private Vector2 leftButtonPos = new Vector2(-10.15f, 0.07f);
+    private Vector2 rightButtonPos = new Vector2(10.15f, 0.07f);
+    private Vector2 buttonScale = new Vector2(1.25f, 2.475f);
+
 
     // Hit windows (tweak as needed)
-    private float perfectRadius = 0.5f * 1.9646f; // Half width of button for perfect
-    private float earlyLateRadius = 1.5f * 1.9646f; // A bit wider for early/late
+    private float perfectRadius = 0.5f * 1.25f; // Half width of button for perfect
+    private float earlyLateRadius = 1.5f * 1.25f; // A bit wider for early/late
 
     void Start()
     {

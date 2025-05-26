@@ -19,6 +19,21 @@ public class ScoreDisplay : MonoBehaviour
         LoadAndDisplayScores();
     }
 
+    int CalculateMaxScore(int noteCount, int streakThreshold)
+    {
+        int maxScore = 0;
+        int multiplier = 1;
+        int streak = 0;
+        for (int i = 0; i < noteCount; i++)
+        {
+            maxScore += 100 * multiplier;
+            streak++;
+            if (streak % streakThreshold == 0)
+                multiplier++;
+        }
+        return maxScore;
+    }
+
     void LoadAndDisplayScores()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, jsonFileName);
@@ -39,6 +54,9 @@ public class ScoreDisplay : MonoBehaviour
         {
             int score = config.highScore.current;
             int best = config.highScore.best;
+            int noteCount = config.notes.Count;
+            int maxScore = CalculateMaxScore(noteCount, 10); // or pass your actual streakThreshold
+                int percentage = (maxScore > 0) ? Mathf.RoundToInt((float)score / maxScore * 100f) : 0;
 
             StartCoroutine(AnimateScore(scoreText, score, animationDuration));
 
@@ -49,7 +67,7 @@ public class ScoreDisplay : MonoBehaviour
 
             // Pass the score to the gif player
             if (gifPlayer != null)
-                gifPlayer.SetScore(score);
+                gifPlayer.SetScore(percentage);
         }
         else
         {
