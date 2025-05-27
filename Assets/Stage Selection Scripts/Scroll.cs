@@ -31,7 +31,7 @@ public class Scroll : MonoBehaviour
             {
                 transform.GetChild(i).localScale = Vector2.Lerp(
                     transform.GetChild(i).localScale, 
-                    new Vector2(1.2f, 1.2f), 
+                    new Vector2(1.1f, 1.1f), // Slightly smaller than before
                     0.1f
                 );
                 
@@ -41,7 +41,7 @@ public class Scroll : MonoBehaviour
                     {
                         transform.GetChild(a).localScale = Vector2.Lerp(
                             transform.GetChild(a).localScale, 
-                            new Vector2(0.8f, 0.8f), 
+                            new Vector2(0.85f, 0.85f), // Slightly larger than before
                             0.1f
                         );
                     }

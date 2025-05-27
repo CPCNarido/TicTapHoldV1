@@ -181,7 +181,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6392269854929014885, guid: 31bc1e2bfa56f474c82a236b8a435dad, type: 3}
+  m_Sprite: {fileID: 5826329469782705028, guid: 4cbd808b2fce09b4ca607091c495bc96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -265,6 +265,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -7, y: -3}
+  m_AnchoredPosition: {x: -0.00000047684, y: 0.00000095367}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &196503954
@@ -755,7 +756,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Exit
+  m_text: 'EXIT
 
 '
   m_isRightToLeft: 0
@@ -1038,7 +1039,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start
+  m_text: START
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c745f2434925f145a015b38563a7881, type: 2}
   m_sharedMaterial: {fileID: 2059909135898509981, guid: 5c745f2434925f145a015b38563a7881, type: 2}
@@ -1233,6 +1234,8 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -252, y: 34}
   m_SizeDelta: {x: 520, y: 50}
+  m_AnchoredPosition: {x: -455.2, y: 25}
+  m_SizeDelta: {x: 930, y: 110}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1282763912
 MonoBehaviour:
@@ -1266,7 +1269,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TicTapHold
+  m_text: 'TICTAPHOLD
 
 '
   m_isRightToLeft: 0
@@ -1297,12 +1300,14 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontSize: 100
   m_fontSizeBase: 100
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1384,6 +1389,8 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -260, y: 40}
   m_SizeDelta: {x: 520, y: 50}
+  m_AnchoredPosition: {x: -465, y: 25}
+  m_SizeDelta: {x: 930, y: 110}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1466151185
 MonoBehaviour:
@@ -1417,7 +1424,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TicTapHold
+  m_text: 'TICTAPHOLD
 
 '
   m_isRightToLeft: 0
@@ -1448,12 +1455,14 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontSize: 100
   m_fontSizeBase: 100
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1599,7 +1608,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Settings
+  m_text: 'SETTINGS
 
 '
   m_isRightToLeft: 0
