@@ -1109,7 +1109,7 @@ MonoBehaviour:
   holdNoteSound: {fileID: 0}
   backgroundMusic: {fileID: 327945249}
   musicStartDelay: 2
-  jsonFileName: mistydrive_hard.json
+  jsonFileName: mistydrive_easy.json
 --- !u!4 &487220652
 Transform:
   m_ObjectHideFlags: 0
@@ -3992,10 +3992,8 @@ SceneRoots:
   - {fileID: 290121742}
   - {fileID: 560427942}
   - {fileID: 855884193}
-  - {fileID: 487220652}
   - {fileID: 1762879025}
   - {fileID: 310714389}
-  - {fileID: 327945250}
   - {fileID: 460126104}
   - {fileID: 1580670009}
   - {fileID: 621727287}
@@ -4003,3 +4001,5 @@ SceneRoots:
   - {fileID: 2098991908}
   - {fileID: 2037596705}
   - {fileID: 2131475808}
+  - {fileID: 487220652}
+  - {fileID: 327945250}

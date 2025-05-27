@@ -1960,43 +1960,43 @@ PrefabInstance:
       objectReference: {fileID: 666284068078388195, guid: 4733e02096c01894899f223f6d4748af, type: 2}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: excludedScenes.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[0]'
-      value: EasyMD
+      value: SongDescriptionScene
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[1]'
-      value: MediumMD
+      value: EasyMD
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[2]'
-      value: HardMD
+      value: MediumMD
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[3]'
-      value: EasyMDResult
+      value: HardMD
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[4]'
-      value: MediumMDResult
+      value: EasyMDResult
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[5]'
-      value: HardMDResult
+      value: MediumMDResult
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[6]'
-      value: EasyNF
+      value: HardMDResult
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[7]'
-      value: EasyST
+      value: EasyNF
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[8]'
-      value: 
+      value: EasyST
       objectReference: {fileID: 0}
     - target: {fileID: 8578046873258518633, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: m_LocalPosition.x
