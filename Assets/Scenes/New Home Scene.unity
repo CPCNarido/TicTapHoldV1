@@ -186,7 +186,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 9.17, y: 4.12}
+  m_Size: {x: 1.59, y: 0.66}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -265,7 +265,6 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -7, y: -3}
-  m_AnchoredPosition: {x: -0.00000047684, y: 0.00000095367}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &196503954
@@ -1234,8 +1233,6 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -252, y: 34}
   m_SizeDelta: {x: 520, y: 50}
-  m_AnchoredPosition: {x: -455.2, y: 25}
-  m_SizeDelta: {x: 930, y: 110}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1282763912
 MonoBehaviour:
@@ -1300,8 +1297,6 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontSize: 100
   m_fontSizeBase: 100
-  m_fontSize: 120
-  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1389,8 +1384,6 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -260, y: 40}
   m_SizeDelta: {x: 520, y: 50}
-  m_AnchoredPosition: {x: -465, y: 25}
-  m_SizeDelta: {x: 930, y: 110}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1466151185
 MonoBehaviour:
@@ -1455,8 +1448,6 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontSize: 100
   m_fontSizeBase: 100
-  m_fontSize: 120
-  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
