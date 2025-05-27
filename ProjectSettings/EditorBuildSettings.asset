@@ -15,6 +15,54 @@ EditorBuildSettings:
     path: Assets/Scenes/GamePlay/MistyDrive/Medium/MediumMD.unity
     guid: 80614b41c98f7a3458cd9860932456c2
   - enabled: 1
+    path: Assets/Scenes/GamePlay/DaftPunk/Easy/EasyDP.unity
+    guid: fe8c63b61390a614a8f8777bb7802f01
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Sequences/Medium/MediumS.unity
+    guid: 54392ef1809f3ff4d9e1e120ce179169
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Sequences/Medium/MediumSResult.unity
+    guid: 71c1d9210569a394fb6e2ade6175b2d4
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/DaftPunk/Medium/MediumDP.unity
+    guid: c0bd0136d477f27489c3aaa99f67e2e0
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Jupiter/Hard/HardJ.unity
+    guid: 0e8f0dea7cec3f04c8d27c6525ef1eac
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Jupiter/Hard/HardJResult.unity
+    guid: 1182be3ba5b145543a478f59d0952cf1
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Jupiter/Medium/MediumJ.unity
+    guid: 520fbf5598109714fb2baafbc58bdb84
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Sequences/Easy/EasyS.unity
+    guid: 76069e01a6124404a8fba7258dcb4a1f
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Sequences/Easy/EasySResult.unity
+    guid: cbb8d7f97ac64e54ab4b2de561d425ca
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Jupiter/Medium/MediumJResult.unity
+    guid: c7a8b8b2c3e46894289cb503380ffa16
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/DaftPunk/Medium/MediumDPResult.unity
+    guid: 7f2de806950163f4fa979c50dd5eb8be
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/DaftPunk/Hard/HardDP.unity
+    guid: 88a8ef38331a3c144a33d3a9c45d8f55
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Jupiter/Easy/EasyJ.unity
+    guid: 08a2e45bbf98ce04f90e32aa96b7b2e6
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Jupiter/Easy/EasyJResult.unity
+    guid: f8072319472159a429cc24f3d612edf6
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/DaftPunk/Hard/HardDPResult.unity
+    guid: cbd4f78eef108b246a3d28dff4ec821c
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/DaftPunk/Easy/EasyDPResult.unity
+    guid: 1d6756c8040ca5443a8a6e24c5dd2ba4
+  - enabled: 1
     path: Assets/Scenes/GamePlay/MistyDrive/Medium/MediumMDResult.unity
     guid: aa8be4ab09c8f7d4da8944f29035c9c4
   - enabled: 0
@@ -36,6 +84,12 @@ EditorBuildSettings:
     path: Assets/Scenes/GamePlay/NoteFunk/Easy/EasyNFResult.unity
     guid: 565e27d2df6545f439cb6a55b0260abd
   - enabled: 1
+    path: Assets/Scenes/GamePlay/ShadowTrail/Hard/HardST.unity
+    guid: 5a56b0d4a56567d45bc9a129115a29db
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/ShadowTrail/Hard/HardSTResult.unity
+    guid: 022fec237c542e242ac07de393374682
+  - enabled: 1
     path: Assets/Scenes/GamePlay/ShadowTrail/Easy/EasyST.unity
     guid: 78d5f70462b026648a170bd1c06c98e0
   - enabled: 1
@@ -47,6 +101,42 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GamePlay/MistyDrive/Hard/HardMD.unity
     guid: 2f2ef4796ac83114aad89c75ed68f8bc
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Fresh/Easy/EasyF.unity
+    guid: 4b16a580d798abd499ac05c0345261a8
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Fresh/Easy/EasyFResult.unity
+    guid: 44fbc6bb354b52b438447ea959a71caa
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Fresh/Medium/MediumF.unity
+    guid: ccc68178d4c7d6d46a871c7213ef7c95
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Fresh/Medium/MediumFResult.unity
+    guid: 0419c5cc7752aca4d81c8ecd9872124d
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Matahari/Hard/HardM.unity
+    guid: b454cb4a2756a1a4881fecbf8b5bd9b1
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Matahari/Hard/HardMResult.unity
+    guid: 1756b4bfcaef860469d6567ddb1741e6
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Matahari/Medium/MediumM.unity
+    guid: e401245483a87fb43b6732f5015578c9
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Matahari/Medium/MediumMResult.unity
+    guid: a13d3130f6cb60443b463fb7a8af5b23
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Sequences/Hard/HardS.unity
+    guid: a5157c9757f3a324b8ea1a4e47c7cf36
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Sequences/Hard/HardSResult.unity
+    guid: 0778376c72083b04b829b2da867ca850
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Fresh/Hard/HardF.unity
+    guid: e30d30f7680a2344490548882da42ec3
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Fresh/Hard/HardFResult.unity
+    guid: 9b537703830b22a498366f02f40ded2e
   - enabled: 1
     path: Assets/Scenes/GamePlay/NoteFunk/Medium/MediumNF.unity
     guid: 400516d640581ec46a447b90862a3380

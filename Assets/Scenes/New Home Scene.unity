@@ -1960,7 +1960,7 @@ PrefabInstance:
       objectReference: {fileID: 666284068078388195, guid: 4733e02096c01894899f223f6d4748af, type: 2}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: excludedScenes.Array.size
-      value: 13
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[0]'
@@ -2013,6 +2013,54 @@ PrefabInstance:
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[12]'
       value: HardNFResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[13]'
+      value: EasyST
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[14]'
+      value: MediumST
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[15]'
+      value: HardST
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[16]'
+      value: EasySTResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[17]'
+      value: MediumSTResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[18]'
+      value: HardSTResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[19]'
+      value: EasyF
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[20]'
+      value: MediumF
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[21]'
+      value: HardF
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[22]'
+      value: EasyFResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[23]'
+      value: MediumFResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[24]'
+      value: HardFResult
       objectReference: {fileID: 0}
     - target: {fileID: 8578046873258518633, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: m_LocalPosition.x
