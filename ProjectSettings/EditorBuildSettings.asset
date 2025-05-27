@@ -13,23 +13,50 @@ EditorBuildSettings:
     guid: c8bd27f940e829e4396dcab632604c0f
   - enabled: 1
     path: Assets/Scenes/GamePlay/MistyDrive/Medium/MediumMD.unity
-    guid: 5f4c0fd0fb0d63242b1a415306715db5
+    guid: 80614b41c98f7a3458cd9860932456c2
   - enabled: 1
     path: Assets/Scenes/GamePlay/MistyDrive/Medium/MediumMDResult.unity
-    guid: 05fe601bd7ba2aa4c9377f6cc04b994d
-  - enabled: 1
+    guid: aa8be4ab09c8f7d4da8944f29035c9c4
+  - enabled: 0
     path: Assets/Scenes/GamePlay/ShadowTrail/EasyST.unity
     guid: 5966970bf5fdae5498ab68d16b2c88bb
   - enabled: 1
     path: Assets/Scenes/GamePlay/MistyDrive/Easy/EasyMDResult.unity
     guid: 34cadec7ad2a7994aa983b932dad7f6e
   - enabled: 1
+    path: Assets/Scenes/GamePlay/ShadowTrail/Medium/MediumST.unity
+    guid: 554729e4881ac284bb78b6b3ea965cd1
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/ShadowTrail/Medium/MediumSTResult.unity
+    guid: 09db6dcab9cc4254b8bb3a01e223a0b6
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/NoteFunk/Easy/EasyNF.unity
+    guid: 5d3c43859c83eab4d856f5db124fa041
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/NoteFunk/Easy/EasyNFResult.unity
+    guid: 565e27d2df6545f439cb6a55b0260abd
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/ShadowTrail/Easy/EasyST.unity
+    guid: 78d5f70462b026648a170bd1c06c98e0
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/NoteFunk/Hard/HardNF.unity
+    guid: 259519ce24c4c8349b7387c631cb1cba
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/NoteFunk/Hard/HardNFResult.unity
+    guid: ff707df82c1f06a4c8a272feaeb4f09d
+  - enabled: 1
     path: Assets/Scenes/GamePlay/MistyDrive/Hard/HardMD.unity
-    guid: b5a9c1a9c076ad349b924e3b086dbd3a
+    guid: 2f2ef4796ac83114aad89c75ed68f8bc
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/NoteFunk/Medium/MediumNF.unity
+    guid: 400516d640581ec46a447b90862a3380
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/NoteFunk/Medium/MediumNFResult.unity
+    guid: 8e0ca683307f052469da8df46f27140d
   - enabled: 1
     path: Assets/Scenes/GamePlay/MistyDrive/Hard/HardMDResult.unity
-    guid: ffed5cde4803f634fabf13a84fb57129
-  - enabled: 1
+    guid: d5b773cd7b32b41418874f4ff8834737
+  - enabled: 0
     path: Assets/Scenes/GamePlay/NoteFunk/EasyNF.unity
     guid: 904e3a2540113b14082bd00164d05a3a
   - enabled: 0
@@ -44,6 +71,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SongDescriptionScene.unity
     guid: 67b8383d33fa05248a2a003b4ef69099
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/ShadowTrail/Easy/EasySTResult.unity
+    guid: cfde444fcc0c931459c7d9df686c9589
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 703b0152ed2c41f488f8b13f193fadcd, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

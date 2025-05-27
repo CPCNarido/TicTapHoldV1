@@ -1960,7 +1960,7 @@ PrefabInstance:
       objectReference: {fileID: 666284068078388195, guid: 4733e02096c01894899f223f6d4748af, type: 2}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: excludedScenes.Array.size
-      value: 9
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[0]'
@@ -1996,7 +1996,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: 'excludedScenes.Array.data[8]'
-      value: EasyST
+      value: MediumNF
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[9]'
+      value: HardNF
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[10]'
+      value: EasyNFResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[11]'
+      value: MediumNFResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842455917762332988, guid: 728c120358cbb84448956368830613b3, type: 3}
+      propertyPath: 'excludedScenes.Array.data[12]'
+      value: HardNFResult
       objectReference: {fileID: 0}
     - target: {fileID: 8578046873258518633, guid: 728c120358cbb84448956368830613b3, type: 3}
       propertyPath: m_LocalPosition.x
