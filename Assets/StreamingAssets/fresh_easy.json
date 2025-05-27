@@ -1,184 +1,200 @@
 {
   "notes": [
     {
-      "direction": "right",
-      "time": 0.07
+      "direction": "left",
+      "time": 3.18
     },
     {
       "direction": "right",
-      "time": 0.56
+      "time": 6.76
+    },
+    {
+      "direction": "right",
+      "time": 7.78
     },
     {
       "direction": "left",
-      "time": 1.07
+      "time": 9.31
     },
     {
       "direction": "right",
-      "time": 2.58
+      "time": 11.87
     },
     {
       "direction": "left",
-      "time": 4.06
+      "time": 14.42
     },
     {
       "direction": "right",
-      "time": 5.57
+      "time": 18.51
+    },
+    {
+      "direction": "right",
+      "time": 19.02
+    },
+    {
+      "direction": "right",
+      "time": 25.15
+    },
+    {
+      "direction": "right",
+      "time": 26.17
+    },
+    {
+      "direction": "right",
+      "time": 28.21
+    },
+    {
+      "direction": "right",
+      "time": 30.77
+    },
+    {
+      "direction": "right",
+      "time": 33.32
+    },
+    {
+      "direction": "right",
+      "time": 36.39
+    },
+    {
+      "direction": "right",
+      "time": 39.45
+    },
+    {
+      "direction": "right",
+      "time": 43.51
+    },
+    {
+      "direction": "right",
+      "time": 48.65
     },
     {
       "direction": "left",
-      "time": 6.06
+      "time": 49.16
     },
     {
       "direction": "right",
-      "time": 7.57
+      "time": 54.75
     },
     {
       "direction": "right",
-      "time": 8.57
+      "time": 55.77
+    },
+    {
+      "direction": "right",
+      "time": 56.8
+    },
+    {
+      "direction": "right",
+      "time": 60.37
     },
     {
       "direction": "left",
-      "time": 11.08
+      "time": 63.44
+    },
+    {
+      "direction": "right",
+      "time": 69.06
     },
     {
       "direction": "left",
-      "time": 16.07
+      "time": 70.59
     },
     {
       "direction": "right",
-      "time": 18.55
+      "time": 71.61
     },
     {
       "direction": "right",
-      "time": 26.7
+      "time": 72.12
     },
     {
       "direction": "right",
-      "time": 27.7
-    },
-    {
-      "direction": "right",
-      "time": 34.71
+      "time": 74.16
     },
     {
       "direction": "left",
-      "time": 35.2
+      "time": 76.72
     },
     {
       "direction": "right",
-      "time": 38.71
-    },
-    {
-      "direction": "right",
-      "time": 39.71
-    },
-    {
-      "direction": "right",
-      "time": 47.21
+      "time": 82.34
     },
     {
       "direction": "left",
-      "time": 50.2
-    },
-    {
-      "direction": "right",
-      "time": 50.71
-    },
-    {
-      "direction": "right",
-      "time": 52.2
+      "time": 82.85
     },
     {
       "direction": "left",
-      "time": 58.19
+      "time": 86.94
     },
     {
       "direction": "right",
-      "time": 61.7
+      "time": 88.47
     },
     {
       "direction": "left",
-      "time": 62.18
+      "time": 92.04
     },
     {
       "direction": "left",
-      "time": 64.18
+      "time": 93.07
     },
     {
       "direction": "left",
-      "time": 75.19
+      "time": 95.11
     },
     {
       "direction": "right",
-      "time": 75.7
+      "time": 99.71
     },
     {
       "direction": "left",
-      "time": 78.18
+      "time": 101.24
     },
     {
       "direction": "right",
-      "time": 80.18
+      "time": 102.75
     },
     {
       "direction": "right",
-      "time": 89.19
+      "time": 109.9
     },
     {
       "direction": "left",
-      "time": 94.18
-    },
-    {
-      "direction": "right",
-      "time": 96.71
-    },
-    {
-      "direction": "right",
-      "time": 97.2
-    },
-    {
-      "direction": "right",
-      "time": 102.7
+      "time": 119.61
     },
     {
       "direction": "left",
-      "time": 105.19
+      "time": 120.63
+    },
+    {
+      "direction": "right",
+      "time": 126.25
+    },
+    {
+      "direction": "right",
+      "time": 128.29
+    },
+    {
+      "direction": "right",
+      "time": 131.36
     },
     {
       "direction": "left",
-      "time": 110.18
+      "time": 134.93
+    },
+    {
+      "direction": "right",
+      "time": 135.44
     },
     {
       "direction": "left",
-      "time": 119.19
+      "time": 135.95
     },
     {
       "direction": "right",
-      "time": 122.69
-    },
-    {
-      "direction": "right",
-      "time": 127.71
-    },
-    {
-      "direction": "right",
-      "time": 130.68
-    },
-    {
-      "direction": "right",
-      "time": 131.68
-    },
-    {
-      "direction": "left",
-      "time": 134.19
-    },
-    {
-      "direction": "right",
-      "time": 136.21
-    },
-    {
-      "direction": "left",
-      "time": 137.18
+      "time": 138.51
     }
   ]
 }
