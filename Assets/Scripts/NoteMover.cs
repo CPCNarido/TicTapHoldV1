@@ -41,20 +41,25 @@ public class NoteMover : MonoBehaviour
             {
                 StartMovingOffScreen();
             }
+            // For hold notes: if not pressed and reaches the button, start moving off
+            if (IsAtTarget() && isHoldNote && holdProgress <= 0f)
+            {
+                StartMovingOffScreen();                   
+            }
         }
         else
         {
-            Vector3 offScreenPosition = direction == "left" ? new Vector3(-15, 0, transform.position.z) : new Vector3(15, 0, transform.position.z);
+            // Move to -0.15 or 0.15 on x-axis depending on direction
+            Vector3 offScreenPosition = direction == "left"
+                ? new Vector3(-15f, targetPosition.y, transform.position.z)
+                : new Vector3(15f, targetPosition.y, transform.position.z);
+
             transform.position = Vector3.MoveTowards(transform.position, offScreenPosition, speed * Time.deltaTime);
 
-            if ((direction == "left" && transform.position.x <= -11) ||
-                (direction == "right" && transform.position.x >= 11))
-            {
-                OnNoteMissed?.Invoke(direction);
-            }
-
+            // Consider the note missed when it reaches the off-screen position
             if (Vector3.Distance(transform.position, offScreenPosition) < 0.1f)
             {
+                OnNoteMissed?.Invoke(direction);
                 Destroy(gameObject);
             }
         }

@@ -8,12 +8,13 @@
         {
             "direction": "right",
             "time": 0.949999988079071,
-            "holdDuration": 0.8999999761581421
+            "holdDuration": 0.0
         },
         {
             "direction": "right",
             "time": 1.3899999856948853,
-            "holdDuration": 0.8999999761581421
+            "holdDuration": 0.0
+            
         },
         {
             "direction": "right",
@@ -408,6 +409,6 @@
     ],
     "highScore": {
         "best": 9975,
-        "current": 9975
+        "current": 7325
     }
 }

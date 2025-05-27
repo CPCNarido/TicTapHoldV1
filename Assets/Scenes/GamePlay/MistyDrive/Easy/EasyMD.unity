@@ -1099,6 +1099,8 @@ MonoBehaviour:
   beatTempo: 135
   leftNotePrefab: {fileID: 5858321408051594173, guid: ae94858769154ff4392e0a8b3aa213e9, type: 3}
   rightNotePrefab: {fileID: 5858321408051594173, guid: 0c7fd8b9b10bcff438624495cbce6158, type: 3}
+  leftHoldNotePrefab: {fileID: 558642570781479248, guid: 029fe7168a2084f42bc13fd9a6084141, type: 3}
+  rightHoldNotePrefab: {fileID: 2910873232685066236, guid: 05a9e39e1dfc21d4cadd637f5b1a3906, type: 3}
   centerPosition: {fileID: 310714389}
   scoreText: {fileID: 1975285775}
   multiplierText: {fileID: 999471162}
@@ -1107,7 +1109,7 @@ MonoBehaviour:
   holdNoteSound: {fileID: 0}
   backgroundMusic: {fileID: 327945249}
   musicStartDelay: 2
-  jsonFileName: mistydrive_easy.json
+  jsonFileName: mistydrive_hard.json
 --- !u!4 &487220652
 Transform:
   m_ObjectHideFlags: 0

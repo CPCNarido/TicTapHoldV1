@@ -10,6 +10,8 @@ public class BeatScroller : MonoBehaviour
     public float beatTempo; // BPM
     public GameObject leftNotePrefab;
     public GameObject rightNotePrefab;
+    public GameObject leftHoldNotePrefab;
+    public GameObject rightHoldNotePrefab;
     public Transform centerPosition;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI multiplierText;
@@ -167,26 +169,77 @@ public class BeatScroller : MonoBehaviour
         }
     }
 
+
+
+
+
     void SpawnNote(Note note, float elapsedTime)
     {
-        GameObject prefab = note.direction == "left" ? leftNotePrefab : rightNotePrefab;
+        GameObject prefab;
+        bool isHoldNote = note.holdDuration > 0;
+
+        // Choose prefab based on note type and direction
+        if (isHoldNote)
+        {
+            prefab = note.direction == "left" ? leftHoldNotePrefab : rightHoldNotePrefab;
+            Debug.Log($"Spawning HOLD note: direction={note.direction}, time={note.time}, duration={note.holdDuration}");
+        }
+
+        else
+        {
+            prefab = note.direction == "left" ? leftNotePrefab : rightNotePrefab;
+            Debug.Log($"Spawning TAP note: direction={note.direction}, time={note.time}");
+        }
+
+
         if (prefab == null)
         {
-            Debug.LogError($"Prefab for {note.direction} notes is not assigned!");
+            Debug.LogError($"Prefab for {note.direction} {(isHoldNote ? "hold" : "tap")} notes is not assigned!");
             return;
         }
 
         Vector3 spawnPosition = new Vector3(centerPosition.position.x, centerPosition.position.y, -5f);
 
+        // Calculate the scale factor for hold notes
+        float scaleFactor = 1f;
+        if (isHoldNote)
+            scaleFactor = Mathf.Abs(note.holdDuration * beatTempo);
+
+        // Get the prefab's SpriteRenderer width in world units (after scaling)
+        SpriteRenderer sr = prefab.GetComponent<SpriteRenderer>();
+        float prefabWidth = sr != null ? Mathf.Abs(sr.bounds.size.x * scaleFactor) : scaleFactor;
+
+        // Offset logic to avoid overlap for notes spawning at nearly the same time
+        Vector3 lastSpawn = note.direction == "left" ? lastLeftNoteSpawn : lastRightNoteSpawn;
+        float lastWidth = note.direction == "left"
+            ? lastLeftNoteSpawn != Vector3.positiveInfinity ? lastLeftNoteWidth : 0f
+            : lastRightNoteSpawn != Vector3.positiveInfinity ? lastRightNoteWidth : 0f;
+
+        float minGap = 0.05f;
+        if (lastSpawn != Vector3.positiveInfinity && Mathf.Abs(spawnPosition.x - lastSpawn.x) < (lastWidth + prefabWidth) / 2f + minGap)
+        {
+            float offset = (lastWidth + prefabWidth) / 2f + minGap;
+            spawnPosition.x += note.direction == "left" ? -offset : offset;
+        }
+
         GameObject spawnedNote = Instantiate(prefab, spawnPosition, Quaternion.identity);
 
-        NoteMover noteMover = spawnedNote.GetComponent<NoteMover>();
+        // Update last spawn position and width for this direction
+        if (note.direction == "left")
+        {
+            lastLeftNoteSpawn = spawnPosition;
+            lastLeftNoteWidth = prefabWidth;
+        }
+        else
+        {
+            lastRightNoteSpawn = spawnPosition;
+            lastRightNoteWidth = prefabWidth;
+        }
 
+        // Initialize NoteMover if present
+        NoteMover noteMover = spawnedNote.GetComponent<NoteMover>();
         if (noteMover != null)
         {
-            bool isHoldNote = note.holdDuration > 0;
-            // You can pass button positions if needed for NoteMover, or just use them in BeatScroller
-
             Vector3 targetPos = note.direction == "left"
                 ? new Vector3(leftButtonPos.x, leftButtonPos.y, -5f)
                 : new Vector3(rightButtonPos.x, rightButtonPos.y, -5f);
@@ -195,30 +248,44 @@ public class BeatScroller : MonoBehaviour
 
             if (isHoldNote)
             {
-                float scaleFactor = note.holdDuration * beatTempo;
                 spawnedNote.transform.localScale = new Vector3(scaleFactor, spawnedNote.transform.localScale.y, spawnedNote.transform.localScale.z);
             }
+        }
 
-            activeNotes.Add(spawnedNote);
-        }
-        else
+        // Initialize HoldNote if present
+        // ...inside SpawnNote in BeatScroller.cs...
+        HoldNote holdNote = spawnedNote.GetComponent<HoldNote>();
+        if (holdNote != null && isHoldNote)
         {
-            Debug.LogError("Spawned note does not have a NoteMover component!");
+            holdNote.holdDuration = note.holdDuration;
+            holdNote.isRight = note.direction == "right";
+            holdNote.speed = beatTempo; // Use the same speed as tap notes
+            holdNote.targetPosition = note.direction == "right"
+                ? new Vector3(rightButtonPos.x, rightButtonPos.y, -5f)
+                : new Vector3(leftButtonPos.x, leftButtonPos.y, -5f);
+            // Assign bodyTransform, headTransform, endTransform if needed
         }
+
+        activeNotes.Add(spawnedNote);
     }
 
+    // Add these fields at the top of your class:
+    private Vector3 lastLeftNoteSpawn = Vector3.positiveInfinity;
+    private Vector3 lastRightNoteSpawn = Vector3.positiveInfinity;
+    private float lastLeftNoteWidth = 0f;
+    private float lastRightNoteWidth = 0f;
     void HandleHoldNote(string direction, float deltaTime)
     {
         Debug.Log($"Checking for {direction} note to hold...");
-    
+
         Vector2 buttonPos = direction == "left" ? leftButtonPos : rightButtonPos;
-    
+
         GameObject closestNote = null;
         NoteMover closestNoteMover = null;
         float closestDist = float.MaxValue;
         string accuracy = "";
         int scoreToAdd = 0;
-    
+
         // Find the closest note in the hit window
         foreach (GameObject note in activeNotes)
         {
@@ -227,7 +294,7 @@ public class BeatScroller : MonoBehaviour
             {
                 Vector2 notePos = note.transform.position;
                 float dist = Vector2.Distance(notePos, buttonPos);
-    
+
                 if (dist <= perfectRadius)
                 {
                     if (dist < closestDist)
@@ -261,7 +328,7 @@ public class BeatScroller : MonoBehaviour
                 }
             }
         }
-    
+
         // Only process the closest note
         if (closestNote != null && closestNoteMover != null)
         {
@@ -269,14 +336,14 @@ public class BeatScroller : MonoBehaviour
             {
                 closestNoteMover.IncrementHoldProgress(deltaTime);
                 Debug.Log($"Holding {direction} note. Progress: {closestNoteMover.GetHoldProgress():F2}/{closestNoteMover.GetHoldDuration():F2}");
-    
+
                 if (closestNoteMover.IsHoldComplete())
                 {
                     Debug.Log($"Hold note {direction} completed!");
                     if (activeNotes.Contains(closestNote))
                         activeNotes.Remove(closestNote);
                     Destroy(closestNote);
-    
+
                     AddScore(scoreToAdd);
                     feedbackManager.ShowFeedback(direction, accuracy);
                     if (holdNoteSound != null) holdNoteSound.Play();
@@ -288,14 +355,14 @@ public class BeatScroller : MonoBehaviour
                 if (activeNotes.Contains(closestNote))
                     activeNotes.Remove(closestNote);
                 Destroy(closestNote);
-    
+
                 AddScore(scoreToAdd);
                 feedbackManager.ShowFeedback(direction, accuracy);
                 if (noteHitSound != null) noteHitSound.Play();
             }
             return; // Only one note handled per press
         }
-    
+
         Debug.Log($"No valid {direction} note found to hold/tap.");
     }
 
@@ -320,14 +387,14 @@ public class BeatScroller : MonoBehaviour
                 perfectStreak = 0;
                 break;
         }
-    
+
         AddScore(points);
-    
+
         // Show "Perfect xN" if streak is 2 or more, otherwise just show the accuracy
         string feedback = accuracy;
         if (accuracy == "Perfect" && perfectStreak > 1)
             feedback = $"Perfect x{perfectStreak}";
-    
+
         feedbackManager.ShowFeedback(direction, feedback);
     }
 
@@ -366,12 +433,16 @@ public class BeatScroller : MonoBehaviour
     {
         NoteMover.OnNoteHit += HandleNoteScored;
         NoteMover.OnNoteMissed += HandleNoteMissed;
+        HoldNote.OnHoldComplete += HandleHoldNoteComplete;
+        HoldNote.OnHoldEarlyRelease += HandleHoldNoteEarlyRelease;
     }
 
     void OnDisable()
     {
         NoteMover.OnNoteHit += HandleNoteScored;
         NoteMover.OnNoteMissed -= HandleNoteMissed;
+        HoldNote.OnHoldComplete -= HandleHoldNoteComplete;
+        HoldNote.OnHoldEarlyRelease -= HandleHoldNoteEarlyRelease;
     }
 
     void HandleNoteMissed(string direction)
@@ -394,16 +465,16 @@ public class BeatScroller : MonoBehaviour
     public void SaveScore()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, jsonFileName);
-    
+
         if (!File.Exists(filePath))
         {
             Debug.LogError($"Score file not found at: {filePath}");
             return;
         }
-    
+
         string json = File.ReadAllText(filePath);
         NoteConfig config = JsonUtility.FromJson<NoteConfig>(json);
-    
+
         if (config != null)
         {
             // Ensure highScore object exists
@@ -411,10 +482,10 @@ public class BeatScroller : MonoBehaviour
             {
                 config.highScore = new HighScore();
             }
-    
+
             // Always update currentScore
             config.highScore.current = score;
-    
+
             // Update best (high score) if needed
             if (config.highScore.best < score)
             {
@@ -425,7 +496,7 @@ public class BeatScroller : MonoBehaviour
             {
                 Debug.Log("Score is not higher than the current high score. No update made.");
             }
-    
+
             // Save back to JSON
             File.WriteAllText(filePath, JsonUtility.ToJson(config, true));
             Debug.Log($"Scores saved! Current: {config.highScore.current}, High: {config.highScore.best}");
@@ -440,11 +511,11 @@ public class BeatScroller : MonoBehaviour
     {
         SaveScore();
         Debug.Log("Game ended. Score saved.");
-    
+
         // Load the next scene after a short delay (optional)
         StartCoroutine(LoadNextSceneAfterDelay(1f));
     }
-    
+
     private IEnumerator LoadNextSceneAfterDelay(float delay)
     {
         yield return new WaitForSecondsRealtime(delay); // Use WaitForSecondsRealtime so it works even if Time.timeScale == 0
@@ -468,5 +539,25 @@ public class BeatScroller : MonoBehaviour
             elapsedTime += segmentInterval;
             yield return new WaitForSeconds(segmentInterval);
         }
+    }
+    private void HandleHoldNoteComplete(HoldNote note)
+    {
+        AddScore(100);
+        feedbackManager.ShowFeedback(note.isRight ? "right" : "left", "Perfect");
+        Destroy(note.gameObject);
+    }
+
+    private void HandleHoldNoteEarlyRelease(HoldNote note)
+    {
+        AddScore(50);
+        feedbackManager.ShowFeedback(note.isRight ? "right" : "left", "Early");
+        Destroy(note.gameObject);
+    }
+    
+    private void HandleHoldNoteLateRelease(HoldNote note)
+    {
+        AddScore(25);
+        feedbackManager.ShowFeedback(note.isRight ? "right" : "left", "Late");
+        Destroy(note.gameObject);
     }
 }
