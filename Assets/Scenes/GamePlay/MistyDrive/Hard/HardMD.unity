@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9742e173107736047910316baa938679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: EasyMDResult
+  nextSceneName: HardMDResult
   beatTempo: 135
   leftNotePrefab: {fileID: 5858321408051594173, guid: ae94858769154ff4392e0a8b3aa213e9, type: 3}
   rightNotePrefab: {fileID: 5858321408051594173, guid: 0c7fd8b9b10bcff438624495cbce6158, type: 3}
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   holdNoteSound: {fileID: 0}
   backgroundMusic: {fileID: 327945249}
   musicStartDelay: 2
-  jsonFileName: mistydrive_easy.json
+  jsonFileName: mistydrive_hard.json
 --- !u!4 &487220652
 Transform:
   m_ObjectHideFlags: 0
@@ -3796,7 +3796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365a6b38b684af3458ec3c55f9e98e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: EasyMD
+  sceneName: HardMD
 --- !u!4 &2037596705
 Transform:
   m_ObjectHideFlags: 0

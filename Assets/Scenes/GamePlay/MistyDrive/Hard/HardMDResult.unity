@@ -1164,7 +1164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365a6b38b684af3458ec3c55f9e98e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: EasyMD
+  sceneName: HardMD
 --- !u!4 &1168559097
 Transform:
   m_ObjectHideFlags: 0
@@ -1773,7 +1773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32dbcd07fd81b5940b742172c654780a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFileName: mistydrive_easy.json
+  jsonFileName: mistydrive_hard.json
   scoreText: {fileID: 1034140403}
   highScoreText: {fileID: 2041852559}
   animationDuration: 2
