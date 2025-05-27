@@ -507,14 +507,25 @@ public class BeatScroller : MonoBehaviour
         }
     }
 
+    // ...existing code...
     void EndGame()
     {
         SaveScore();
         Debug.Log("Game ended. Score saved.");
-
-        // Load the next scene after a short delay (optional)
-        StartCoroutine(LoadNextSceneAfterDelay(1f));
+    
+        // Find the fade transition object and trigger fade
+        FadeTransition fade = FindObjectOfType<FadeTransition>();
+        if (fade != null)
+        {
+            fade.FadeInAndLoadScene(nextSceneName);
+        }
+        else
+        {
+            // fallback if fade not found
+            UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneName);
+        }
     }
+    // ...existing code...
 
     private IEnumerator LoadNextSceneAfterDelay(float delay)
     {
