@@ -1,13 +1,88 @@
 {
-    "notes": [
-        {
-            "direction": "left",
-            "time": 2.2799999713897707,
-            "holdDuration": 0.0
-        }
-    ],
-    "highScore": {
-        "best": 200,
-        "current": 200
+  "notes": [
+    {
+      "direction": "left",
+      "time": 4.06
+    },
+    {
+      "direction": "left",
+      "time": 9.4
+    },
+    {
+      "direction": "left",
+      "time": 12.05
+    },
+    {
+      "direction": "left",
+      "time": 14.72
+    },
+    {
+      "direction": "right",
+      "time": 17.83
+    },
+    {
+      "direction": "left",
+      "time": 22.29
+    },
+    {
+      "direction": "left",
+      "time": 24.5
+    },
+    {
+      "direction": "right",
+      "time": 30.28
+    },
+    {
+      "direction": "left",
+      "time": 32.51
+    },
+    {
+      "direction": "left",
+      "time": 36.06
+    },
+    {
+      "direction": "left",
+      "time": 39.64
+    },
+    {
+      "direction": "right",
+      "time": 44.51
+    },
+    {
+      "direction": "left",
+      "time": 46.74
+    },
+    {
+      "direction": "right",
+      "time": 55.17
+    },
+    {
+      "direction": "left",
+      "time": 60.05
+    },
+    {
+      "direction": "right",
+      "time": 64.97
+    },
+    {
+      "direction": "right",
+      "time": 67.64
+    },
+    {
+      "direction": "left",
+      "time": 71.63
+    },
+    {
+      "direction": "left",
+      "time": 76.97
+    },
+    {
+      "direction": "right",
+      "time": 80.09
+    },
+    {
+      "direction": "left",
+      "time": 87.63
     }
+  ]
 }

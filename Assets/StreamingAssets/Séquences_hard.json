@@ -1,126 +1,49 @@
 {
   "notes": [
     {
-      "direction": "right",
-      "time": 0.77,
-      "holdDuration": 1.8
+      "direction": "left",
+      "time": 3.14
     },
     {
-      "direction": "right",
-      "time": 1.37
-    },
-    {
-      "direction": "right",
-      "time": 1.88,
-      "holdDuration": 0.6
-    },
-    {
-      "direction": "right",
-      "time": 3.37
-    },
-    {
-      "direction": "right",
-      "time": 3.88
-    },
-    {
-      "direction": "right",
+      "direction": "left",
       "time": 4.37
     },
     {
       "direction": "right",
-      "time": 4.88
-    },
-    {
-      "direction": "right",
-      "time": 5.87
+      "time": 5.88
     },
     {
       "direction": "left",
-      "time": 6.36,
-      "holdDuration": 0.8
-    },
-    {
-      "direction": "right",
-      "time": 6.87,
-      "holdDuration": 0.7
-    },
-    {
-      "direction": "right",
-      "time": 10.38
-    },
-    {
-      "direction": "right",
-      "time": 10.87
-    },
-    {
-      "direction": "right",
-      "time": 11.38,
-      "holdDuration": 1.4
-    },
-    {
-      "direction": "right",
-      "time": 15.88
+      "time": 7.37
     },
     {
       "direction": "left",
-      "time": 16.37,
-      "holdDuration": 2.0
-    },
-    {
-      "direction": "right",
-      "time": 16.88
+      "time": 12.38
     },
     {
       "direction": "left",
-      "time": 17.37
+      "time": 14.38
+    },
+    {
+      "direction": "right",
+      "time": 17.88
     },
     {
       "direction": "left",
-      "time": 20.39,
-      "holdDuration": 1.9
-    },
-    {
-      "direction": "right",
-      "time": 20.87
+      "time": 20.37
     },
     {
       "direction": "left",
-      "time": 23.38,
-      "holdDuration": 1.1
+      "time": 22.39
     },
     {
       "direction": "right",
-      "time": 23.89
-    },
-    {
-      "direction": "right",
-      "time": 24.87
-    },
-    {
-      "direction": "right",
-      "time": 27.38,
-      "holdDuration": 1.9
-    },
-    {
-      "direction": "right",
-      "time": 27.89
+      "time": 25.87,
+      "holdDuration": 1.5
     },
     {
       "direction": "left",
-      "time": 28.37
-    },
-    {
-      "direction": "left",
-      "time": 30.37
-    },
-    {
-      "direction": "right",
-      "time": 30.88
-    },
-    {
-      "direction": "right",
-      "time": 31.9,
-      "holdDuration": 1.7
+      "time": 30.38
     },
     {
       "direction": "left",
@@ -128,40 +51,24 @@
     },
     {
       "direction": "right",
-      "time": 35.9
-    },
-    {
-      "direction": "right",
-      "time": 37.89
+      "time": 35.9,
+      "holdDuration": 2.0
     },
     {
       "direction": "left",
-      "time": 38.38
+      "time": 41.89
     },
     {
       "direction": "left",
-      "time": 41.38,
-      "holdDuration": 0.5
+      "time": 44.38
     },
     {
-      "direction": "right",
-      "time": 44.37
+      "direction": "left",
+      "time": 46.37
     },
     {
-      "direction": "right",
-      "time": 45.88
-    },
-    {
-      "direction": "right",
-      "time": 46.39
-    },
-    {
-      "direction": "right",
+      "direction": "left",
       "time": 49.39
-    },
-    {
-      "direction": "right",
-      "time": 50.39
     },
     {
       "direction": "right",
@@ -169,63 +76,33 @@
     },
     {
       "direction": "right",
-      "time": 51.39
+      "time": 52.9
     },
     {
       "direction": "right",
-      "time": 53.38,
-      "holdDuration": 1.7
+      "time": 54.9,
+      "holdDuration": 0.5
     },
     {
       "direction": "left",
-      "time": 54.38
+      "time": 57.89
     },
     {
-      "direction": "right",
-      "time": 56.89,
-      "holdDuration": 1.1
-    },
-    {
-      "direction": "right",
+      "direction": "left",
       "time": 60.4
     },
     {
       "direction": "right",
-      "time": 61.88,
-      "holdDuration": 1.8
-    },
-    {
-      "direction": "right",
-      "time": 64.9
-    },
-    {
-      "direction": "right",
-      "time": 66.39
-    },
-    {
-      "direction": "right",
-      "time": 68.89
+      "time": 62.37,
+      "holdDuration": 1.9
     },
     {
       "direction": "left",
-      "time": 69.38
-    },
-    {
-      "direction": "right",
-      "time": 69.89
+      "time": 66.9
     },
     {
       "direction": "left",
-      "time": 70.38
-    },
-    {
-      "direction": "right",
-      "time": 70.89,
-      "holdDuration": 1.7
-    },
-    {
-      "direction": "right",
-      "time": 71.38
+      "time": 69.39
     },
     {
       "direction": "right",
@@ -233,41 +110,31 @@
     },
     {
       "direction": "right",
-      "time": 74.37
+      "time": 73.89
     },
     {
       "direction": "left",
-      "time": 75.4
+      "time": 75.38
     },
     {
       "direction": "right",
-      "time": 76.39
+      "time": 76.89
     },
     {
       "direction": "left",
-      "time": 77.39
+      "time": 78.4
     },
     {
       "direction": "right",
-      "time": 78.9
+      "time": 79.88
     },
     {
       "direction": "right",
-      "time": 80.9,
-      "holdDuration": 1.4
+      "time": 81.9
     },
     {
       "direction": "right",
-      "time": 82.9
-    },
-    {
-      "direction": "left",
-      "time": 83.38
-    },
-    {
-      "direction": "right",
-      "time": 84.89,
-      "holdDuration": 1.2
+      "time": 83.9
     },
     {
       "direction": "left",
@@ -275,179 +142,83 @@
     },
     {
       "direction": "right",
-      "time": 89.88,
-      "holdDuration": 1.8
+      "time": 86.89
     },
     {
       "direction": "left",
-      "time": 90.37
+      "time": 89.38
+    },
+    {
+      "direction": "left",
+      "time": 90.4
+    },
+    {
+      "direction": "left",
+      "time": 92.37
+    },
+    {
+      "direction": "left",
+      "time": 94.39
+    },
+    {
+      "direction": "left",
+      "time": 96.39
     },
     {
       "direction": "right",
-      "time": 90.88
-    },
-    {
-      "direction": "left",
-      "time": 91.39
-    },
-    {
-      "direction": "right",
-      "time": 92.88
-    },
-    {
-      "direction": "left",
-      "time": 94.39,
-      "holdDuration": 1.4
-    },
-    {
-      "direction": "right",
-      "time": 94.9,
-      "holdDuration": 1.6
-    },
-    {
-      "direction": "left",
-      "time": 98.38
-    },
-    {
-      "direction": "right",
-      "time": 98.89
-    },
-    {
-      "direction": "left",
       "time": 101.38
     },
     {
-      "direction": "left",
-      "time": 104.4
-    },
-    {
       "direction": "right",
-      "time": 104.88
-    },
-    {
-      "direction": "right",
-      "time": 106.39,
-      "holdDuration": 1.8
+      "time": 102.89,
+      "holdDuration": 0.9
     },
     {
       "direction": "left",
-      "time": 108.39
-    },
-    {
-      "direction": "right",
-      "time": 108.9
+      "time": 116.89
     },
     {
       "direction": "left",
-      "time": 109.39
-    },
-    {
-      "direction": "left",
-      "time": 110.39
-    },
-    {
-      "direction": "right",
-      "time": 112.9
-    },
-    {
-      "direction": "right",
-      "time": 115.89
-    },
-    {
-      "direction": "right",
-      "time": 116.38
-    },
-    {
-      "direction": "right",
-      "time": 117.89
-    },
-    {
-      "direction": "right",
       "time": 118.89
     },
     {
-      "direction": "right",
-      "time": 119.91
-    },
-    {
-      "direction": "right",
-      "time": 121.9
-    },
-    {
-      "direction": "right",
-      "time": 122.9
-    },
-    {
       "direction": "left",
-      "time": 123.39
-    },
-    {
-      "direction": "left",
-      "time": 124.39
+      "time": 121.4
     },
     {
       "direction": "right",
-      "time": 125.9,
+      "time": 122.91,
       "holdDuration": 0.8
     },
     {
-      "direction": "right",
-      "time": 128.38
-    },
-    {
-      "direction": "right",
-      "time": 129.89
+      "direction": "left",
+      "time": 125.9
     },
     {
       "direction": "left",
-      "time": 130.4,
-      "holdDuration": 1.3
+      "time": 128.39
     },
     {
       "direction": "right",
-      "time": 131.4
-    },
-    {
-      "direction": "right",
-      "time": 131.91,
+      "time": 131.89,
       "holdDuration": 2.0
     },
     {
-      "direction": "right",
-      "time": 132.91
+      "direction": "left",
+      "time": 137.4
+    },
+    {
+      "direction": "left",
+      "time": 138.91
     },
     {
       "direction": "right",
-      "time": 134.4
+      "time": 143.39
     },
     {
       "direction": "right",
-      "time": 136.9
-    },
-    {
-      "direction": "right",
-      "time": 137.88
-    },
-    {
-      "direction": "right",
-      "time": 138.88
-    },
-    {
-      "direction": "right",
-      "time": 139.39
-    },
-    {
-      "direction": "right",
-      "time": 141.39
-    },
-    {
-      "direction": "right",
-      "time": 143.38
-    },
-    {
-      "direction": "right",
-      "time": 144.89,
-      "holdDuration": 1.5
+      "time": 145.9,
+      "holdDuration": 1.8
     }
   ]
 }
