@@ -12,6 +12,9 @@ public class FadeTransition : MonoBehaviour
     [Header("Sprites to hide during fade")]
     public List<SpriteRenderer> spritesToHide = new List<SpriteRenderer>();
 
+    [Header("Buttons to hide during fade")]
+    public List<Button> buttonsToHide = new List<Button>();
+
     // Call this to fade in (to black), then load the next scene
     public void FadeInAndLoadScene(string sceneName)
     {
@@ -19,6 +22,11 @@ public class FadeTransition : MonoBehaviour
         {
             if (sprite != null)
                 sprite.gameObject.SetActive(false);
+        }
+        foreach (var btn in buttonsToHide)
+        {
+            if (btn != null)
+                btn.gameObject.SetActive(false);
         }
         StartCoroutine(FadeInAndLoadSceneCoroutine(sceneName));
     }
